@@ -6,10 +6,11 @@ using namespace std;
 
 class Command {
     /// @brief abstruct Command class
-    string description;
-    DefaultIO dio;
+    
 
 public: 
+    string description;
+    DefaultIO dio;
    Command();
    void execute();
 
