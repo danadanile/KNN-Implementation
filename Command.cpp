@@ -1,5 +1,5 @@
 #include "Command.h"
 
-Command::Command(string description, DefaultIO dio){}
+Command::Command(){}
 void Command::execute(){}
 
