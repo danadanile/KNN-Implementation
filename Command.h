@@ -6,13 +6,24 @@ using namespace std;
 
 class Command {
     /// @brief abstruct Command class
-    
 
-public: 
+protected: 
     string description;
-    DefaultIO dio;
-   Command();
-   void execute();
+    DefaultIO* m_dio;
 
+public:
+   /// @brief constructor
+   Command();
+
+    /// @brief get the command description 
+    string getDescription() const;
+
+    
+    /// @brief Execute command.
+    virtual void execute() = 0;
+
+    /// @brief Destructor.
+    virtual ~Command() = default;
 };
+
 #endif

@@ -1,5 +1,8 @@
 #include "Command.h"
 
 Command::Command(){}
-void Command::execute(){}
+
+string Command::getDescription() const {
+    return description;
+}
 
