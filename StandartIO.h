@@ -5,12 +5,23 @@
 
 using namespace std;
 
-class StandartIO : public DefaultIO 
- {
-    /// @brief abstruct Command class
-   
-    string read();
-    void write(string s);
 
+/**
+ * class represents communication with standard io.
+ */
+class StandartIO : public DefaultIO {
+public:
+    /**
+     * Reads user input and returns it.
+     * @return user input
+     */
+    string read() override;
+
+    /**
+     * Writes the given output.
+     * @param str output string
+     */
+    void write(const string &str) override;
 };
+
 #endif
