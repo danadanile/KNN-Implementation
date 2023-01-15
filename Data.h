@@ -12,14 +12,18 @@ using namespace std;
 class Data {
     /// @brief distance type by int.
     VectorMap vec;
-    DistanceType dis;
+    string disName;
     int k;
+    DistanceType disType;
 
 public:
     Data();
-    Data(string fname, int disType, int k);
-    DistanceType getDis();
+    Data(string fname, string disNum, int k, DistanceType disType);
+    string getDisName();
     int getk();
+    void setK(int newK);
+    void setDisName(string newDisName);
+    void setDisType(DistanceType newDisType);
     VectorMap getVectorMap();
 
 
