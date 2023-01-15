@@ -13,6 +13,7 @@ class VectorMap {
     multimap<vector<double>, string> mapi;
 public:
     VectorMap(string fname);
+    VectorMap();
     string knnFunc(vector<double> vecGet, int disNum, int k);
     int GetVectorLength();
     int getSizeMap();

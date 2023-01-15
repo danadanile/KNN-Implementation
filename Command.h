@@ -2,6 +2,7 @@
 #define COMMAND_H_
 #include <string>
 #include "DefaultIO.h"
+#include "Data.h"
 using namespace std;
 
 class Command {
@@ -20,7 +21,7 @@ public:
 
     
     /// @brief Execute command.
-    virtual void execute() = 0;
+    virtual void execute(Data &data) = 0;
 
     /// @brief Destructor.
     virtual ~Command() = default;

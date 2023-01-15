@@ -15,6 +15,11 @@ DistanceType::DistanceType(int disType) {
     distanceNum=disType;
 }
 
+DistanceType::DistanceType() {
+    distanceNum=0;
+}
+
+
 /// @brief calculates the distance by the type with switch case.
 /// @param p vector one.
 /// @param q vector two.
