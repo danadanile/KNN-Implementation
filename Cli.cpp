@@ -7,11 +7,11 @@ using namespace std;
 Cli::Cli(DefaultIO* d_io) : d_io(d_io), data(){
 
 //initialize commands array:
-commands[0]=new UploadCommand(d_io);
-commands[1]=new UploadCommand(d_io);
-commands[2]=new UploadCommand(d_io);
-commands[3]=new UploadCommand(d_io);
-commands[4]=new UploadCommand(d_io);
+commands[0] = new UploadCommand(d_io);
+commands[1] = new UploadCommand(d_io);
+commands[2] = new UploadCommand(d_io);
+commands[3] = new UploadCommand(d_io);
+commands[4] = new UploadCommand(d_io);
 //commands[1]=new SettingsCommand(d_io);
 //commands[2]=new ClassifyCommand(d_io);
 //commands[3]=new DisplayCommand(d_io);
@@ -21,25 +21,30 @@ commands[4]=new UploadCommand(d_io);
 }
 
 void Cli::start() {
-    
-bool play = chooseFromMenu();
-while(play){
-    printMenu();
-    play = chooseFromMenu();
-}
-
-
+    bool play = true;
+    while(play){
+        try{
+            printMenu();
+            play = chooseFromMenu();
+        }
+        catch(const invalid_argument &er){
+            string error = er.what();
+            d_io->write(error);
+            continue;
+        }
+    }
 }
 
 void Cli::printMenu() {
 
-    string menu = "\\InputWelcome to the KNN Classifier Server. Please choose an option:\n";
+    string menu = "Welcome to the KNN Classifier Server. Please choose an option:\n";
     int size = sizeof(commands)/sizeof(commands[0]);
 
-    for(int i=0; i<size; i++){
+    for(int i=0; i<size-1; i++){
         menu +=commands[i]->getDescription();
         menu += "\n";
     }
+        menu +=commands[size-1]->getDescription();
     d_io->write(menu);
 
 }
