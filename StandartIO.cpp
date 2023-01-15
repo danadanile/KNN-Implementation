@@ -3,6 +3,11 @@
 
 using namespace std;
 
+StandartIO::StandartIO() {
+        // code to initialize the standard input/output
+
+}
+
 string StandartIO::read() {
     std::string res;
     getline(std::cin, res);

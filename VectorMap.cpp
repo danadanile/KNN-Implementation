@@ -12,6 +12,12 @@
 
 using namespace std;
 
+
+VectorMap::VectorMap(){
+   
+}
+
+
 /// @brief The class create map by file name. the first column in the map
 /// is the vector, the second is the name.
 /// @param fname as a file name.
