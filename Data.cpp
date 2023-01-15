@@ -14,15 +14,27 @@ Data::Data(){
 
 }
 
-Data::Data(string fname, int disType, int k) : vec(fname), dis(disType), k(k){
+Data::Data(string fname, string disName, int k, DistanceType disType) : vec(fname), 
+ disName(disName), k(k), disType(disType) {
 }
 
 
-DistanceType Data::getDis() {
- return dis;
+string Data::getDisName() {
+ return disName;
 }
 
-     
+void Data::setK(int newK){
+    k=newK;
+}
+
+void Data::setDisName(string newDisName){
+    disName=newDisName;
+}
+
+void Data::setDisType(DistanceType newDisType){
+    disType=newDisType;
+}
+
 int Data::getk() {
     return k;
 }

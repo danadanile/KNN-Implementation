@@ -10,18 +10,19 @@ class Command {
 
 protected: 
     string description;
-    DefaultIO* m_dio;
+    DefaultIO* dio;
+    Data* data;
 
 public:
-   /// @brief constructor
-   Command();
+    /// @brief constructor
+    Command(DefaultIO *my_dio, Data *my_data);
 
     /// @brief get the command description 
     string getDescription() const;
 
     
     /// @brief Execute command.
-    virtual void execute(Data &data) = 0;
+    virtual void execute() = 0;
 
     /// @brief Destructor.
     virtual ~Command() = default;
