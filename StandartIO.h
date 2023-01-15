@@ -11,6 +11,9 @@ using namespace std;
  */
 class StandartIO : public DefaultIO {
 public:
+
+    StandartIO();
+    
     /**
      * Reads user input and returns it.
      * @return user input

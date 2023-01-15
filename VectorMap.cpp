@@ -84,6 +84,8 @@ int VectorMap::getSizeMap(){
    return mapi.size();
 }
 
+
+
 /// @brief return the length of the vector in the map
 /// @return the first vector length, which symbolized the rest of vectors.
 int VectorMap::GetVectorLength(){

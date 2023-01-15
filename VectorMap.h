@@ -17,5 +17,6 @@ public:
     string knnFunc(vector<double> vecGet, int disNum, int k);
     int GetVectorLength();
     int getSizeMap();
+    
 };
 #endif

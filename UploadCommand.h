@@ -10,6 +10,7 @@ class UploadCommand : public Command {
 public: 
    UploadCommand(DefaultIO *dio);
    void execute(Data &data);
+   virtual ~UploadCommand();
 
 };
 #endif
