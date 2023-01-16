@@ -63,4 +63,15 @@ bool CheckFuncs::isNumber(string &s){
     return ((istringstream(s) >> ld >> std::ws).eof());
 }
 
-
+/// @brief check same lenght of vector and classifiend vector
+/// @param p vec1
+/// @param q vec2
+/// @return 1 if same lenght, 0 otherwise
+int CheckFuncs::checkSameLenght(vector<double> p, vector<double> q){
+    if(p.size() == q.size()){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}

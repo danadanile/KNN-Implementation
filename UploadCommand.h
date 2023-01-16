@@ -4,13 +4,13 @@
 #include "Command.h"
 using namespace std;
 
-class UploadCommand : public Command {
-    /// @brief Command2 class for gatting k and distance params
-    
-public: 
-    UploadCommand(DefaultIO *dio, Data *data);
-    void execute()override;
-    virtual ~UploadCommand();
+/// @brief Command1 class for getting test and train files
 
+class UploadCommand : public Command
+{
+    
+public:
+    UploadCommand(DefaultIO *my_dio, Data *my_data);
+    void execute() override;
 };
 #endif

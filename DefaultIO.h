@@ -7,22 +7,18 @@ using namespace std;
 class DefaultIO {
    
 public:
-    /**
-     * Reads user input and return it.
-     * @return  user input
-     */
+
+    /// @brief Reads user input and return it.
+    /// @return user input
     virtual string read() = 0;
 
-    /**
-     * Writes the given output.
-     * @param str output to write
-     */
+
+    /// @brief Writes given output.
+    /// @param str output
     virtual void write(const string &str) = 0;
 
-    /**
-     * Destructor.
-     */
-     virtual ~DefaultIO() = default;
+    /// @brief destructor.
+    virtual ~DefaultIO() = default;
 
 };
 #endif

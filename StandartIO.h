@@ -6,24 +6,22 @@
 using namespace std;
 
 
-/**
- * class represents communication with standard io.
- */
+
+ /// @brief class responsible to communicate with standard io.
+
 class StandartIO : public DefaultIO {
 public:
 
     StandartIO();
     
-    /**
-     * Reads user input and returns it.
-     * @return user input
-     */
+    /// @brief Reads user input.
+    /// @return user input
     string read() override;
+    
 
-    /**
-     * Writes the given output.
-     * @param str output string
-     */
+    
+    /// @brief write output.
+    /// @param str output
     void write(const string &str) override;
 };
 
