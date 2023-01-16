@@ -8,6 +8,7 @@ int main(int argc, char **argv){
 
   DefaultIO *dio = new StandartIO();
   Cli cli(dio);
+  cli.start();
 
    cout<<"ok1"<<endl;
    string fname= argv[1];

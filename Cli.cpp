@@ -2,13 +2,14 @@
 #include "UploadCommand.h"
 #include "CheckFuncs.h"
 #include "Data.h"
+#include "SettingCommand.h"
 using namespace std;
 
 
 Cli::Cli(DefaultIO* dio) : dio(dio) {
     data = new Data();
 
-    commands = {new UploadCommand(dio, data), new UploadCommand(dio, data),
+    commands = {new UploadCommand(dio, data), new SettingCommand(dio, data),
                   new UploadCommand(dio, data), new UploadCommand(dio, data),
                   new UploadCommand(dio, data), new UploadCommand(dio, data)};
 }
@@ -38,21 +39,21 @@ void Cli::start() {
             index = stoi(dio->read());
             //if a not number input
         } catch (const std::exception& e) {
-            dio->write("Please enter a option that is a number\n");
+            dio->write("invalid input\n");
             flag = true;
             continue;
         }
         flag = false;
 
         //exit option
-        if (index == size + 1) {
+        if (index == 8) {
             dio->write("exit\n");
             break;
         }
 
         //invalid option
         if (index <= 0 || index > size) {
-            dio->write("Invalid command, try to type again a valid one:\n");
+            dio->write("invalid input\n");
             flag = true;
             continue;
         }

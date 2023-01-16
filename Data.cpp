@@ -10,12 +10,7 @@ using namespace std;
 
 /// @brief Class which calculates the distance by her type.
 /// @param disType by int (which simbolaized distance name by enum).
-Data::Data(){ 
-    disName="AUC";
-    disType=1;
-    train = VectorMap();
-    test= VectorUnclassified();
-    k=5;
+Data::Data():disName("AUC"),disType(1),train(new VectorMap()), test(new VectorUnclassified()){ 
 }
 
 
@@ -32,7 +27,7 @@ void Data::setDisName(string newDisName){
     disName=newDisName;
 }
 
-void Data::setDisType(DistanceType newDisType){
+void Data::setDisType(int newDisType){
     disType=newDisType;
 }
 
@@ -40,11 +35,37 @@ int Data::getk() {
     return k;
 }
 
-VectorMap Data::getVectorMap() {
+VectorMap* Data::getVectorMap() {
     return train;
 }
 
-VectorUnclassified Data::getTest() {
+VectorUnclassified* Data::getTest() {
     return test;
+}
+
+void Data::setTrain(string fname){
+    delete train;
+    train = new VectorMap(fname);
+}
+
+void Data::setTest(string fname){
+    delete test;
+    test = new VectorUnclassified(fname);
+}
+
+bool Data::getTrainIsInit() {
+ return trainIsInit;
+}
+
+bool Data::getTestIsInit() {
+ return testIsInit;
+}
+
+void Data::setTrainIsInit(){
+    trainIsInit=true;
+}
+
+void Data::setTestIsInit(){
+    testIsInit=true;
 }
 

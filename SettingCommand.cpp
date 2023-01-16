@@ -1,10 +1,26 @@
 #include "SettingCommand.h"
 #include "CheckFuncs.h"
 #include <vector>
+#include <sstream>
 using namespace std;
 
 SettingCommand::SettingCommand(DefaultIO* dio, Data* data) : Command(dio, data) {
     description = "2. algorithm settings";
+}
+
+
+/// @brief insert to vec the input from userInput
+/// @param vec
+/// @param userInput
+void SettingCommand::getInput(vector<string> &vec, string userInput)
+{
+    string token;
+    stringstream X(userInput);
+    while (getline(X, token, ' '))
+    {
+        string param = token;
+        vec.push_back(param);
+    }
 }
 
 bool SettingCommand::isValidK(string k_input) {
@@ -22,7 +38,7 @@ bool SettingCommand::isValidK(string k_input) {
 }
 
 void SettingCommand::execute() {
-    // Notify the client it needs to get input from the user, as well as greet the user
+
     dio->write(string("The current KNN parameters are:")
                 + string(" K = ") + to_string(data->getk())
                 + ", distance metric = " + data->getDisName() + "\n");
@@ -38,8 +54,8 @@ void SettingCommand::execute() {
     getInput(vec, input);
 
     // If too little arguments were given
-    if (vec.size() < 2) {
-        dio->write("too few arguments\n");
+    if (vec.size() !=2 ) {
+        dio->write("invalid value for k\n invalid value for metric\n");
         return;
     }
 
@@ -55,7 +71,7 @@ void SettingCommand::execute() {
             dio->write("Invalid value for K\n");
             return;
         }
-    data->setK(k);
+    
    
 
     string disName = vec[1];
@@ -83,5 +99,6 @@ void SettingCommand::execute() {
     }
     data->setDisName(disName);
     data->setDisType(disNum);
+    data->setK(k);
     
 }
