@@ -4,6 +4,7 @@
 #include <cmath>
 #include <sstream>
 #include "DistanceType.h"
+#include "CheckFuncs.h"
 #define P 2
 #define P_GEOMETRY 1
 #define P_ECLIDEAN 2
@@ -62,18 +63,7 @@ double DistanceType::calcDiff(double p, double q) {
     return std::abs(p-q);
 }
 
-/// @brief check same lenght of vector and classifiend vector
-/// @param p vec1
-/// @param q vec2
-/// @return 1 if same lenght, 0 otherwise
-int DistanceType::checkSameLenght(vector<double> p, vector<double> q){
-    if(p.size() == q.size()){
-        return 1;
-    }
-    else{
-        return 0;
-    }
-}
+
 
 
 /// @brief Calculates Minkowski distance.
@@ -82,7 +72,7 @@ int DistanceType::checkSameLenght(vector<double> p, vector<double> q){
 /// @param k parameter.
 /// @return the calculate result.
 double DistanceType::disMinkowski(vector<double> p, vector<double> q, double k) {
-    if (!checkSameLenght(p,q)){
+    if (!CheckFuncs::checkSameLenght(p,q)){
         return 0;
     }
     int const vectorsSize = p.size();
@@ -119,7 +109,7 @@ double DistanceType::disGeometry(vector<double> p, vector<double> q) {
 /// @param q vector 2.
 /// @return the calculate result.
 double DistanceType::chebyshevDistance(vector<double> p, vector<double> q){
-    if (!checkSameLenght(p,q)){
+    if (!CheckFuncs::checkSameLenght(p,q)){
         return 0;
     }
     double num, temp;
@@ -139,7 +129,7 @@ double DistanceType::chebyshevDistance(vector<double> p, vector<double> q){
 /// @param q vector 2.
 /// @return the calculate result.
 double DistanceType::disCanberra(vector<double> p, vector<double> q){
-     if (!checkSameLenght(p,q)){
+     if (!CheckFuncs::checkSameLenght(p,q)){
         return 0;
     }
 

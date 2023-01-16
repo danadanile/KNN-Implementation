@@ -14,5 +14,6 @@ public:
     static bool isNumeric(string const &str);
     static bool checkKValid(string k_input);
     static bool isNumber(string &s);
+    static int checkSameLenght(vector<double> p, vector<double> q);
 };
 #endif

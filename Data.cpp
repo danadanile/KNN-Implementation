@@ -11,12 +11,13 @@ using namespace std;
 /// @brief Class which calculates the distance by her type.
 /// @param disType by int (which simbolaized distance name by enum).
 Data::Data(){ 
-
+    disName="AUC";
+    disType=1;
+    train = VectorMap();
+    test= VectorUnclassified();
+    k=5;
 }
 
-Data::Data(string fname, string disName, int k, DistanceType disType) : vec(fname), 
- disName(disName), k(k), disType(disType) {
-}
 
 
 string Data::getDisName() {
@@ -40,6 +41,10 @@ int Data::getk() {
 }
 
 VectorMap Data::getVectorMap() {
-    return vec;
+    return train;
+}
+
+VectorUnclassified Data::getTest() {
+    return test;
 }
 

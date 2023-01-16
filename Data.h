@@ -7,14 +7,16 @@
 #include <vector>
 #include "VectorMap.h"
 #include "DistanceType.h"
+#include "VectorUnclassified.h"
 using namespace std;
 
 class Data {
     /// @brief distance type by int.
-    VectorMap vec;
+    VectorMap train;
     string disName;
     int k;
     DistanceType disType;
+    VectorUnclassified test;
 
 public:
     Data();
@@ -25,6 +27,7 @@ public:
     void setDisName(string newDisName);
     void setDisType(DistanceType newDisType);
     VectorMap getVectorMap();
+    VectorUnclassified getTest();
 
 
 };

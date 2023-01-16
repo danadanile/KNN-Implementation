@@ -1,34 +1,54 @@
 #include "UploadCommand.h"
 #include "VectorUnclassified.h"
 
-UploadCommand::UploadCommand(DefaultIO *dio, Data *data):Command(dio,data)
+UploadCommand::UploadCommand(DefaultIO *my_dio, Data *my_data) : Command(my_dio, my_data)
 {
     this->description = "upload an unclassified csv data file";
-    // this->dio=dio;
-    // this->data=data;
 }
 
-void Command::execute(){
+void UploadCommand::execute()
+{
     dio->write("Please upload your local train CSV file.\n");
     string fname = dio->read();
-    //data.setVectorMap();
+    // data.setVectorMap();
 
-    VectorMap mapObj(fname);
-    if (mapObj.getSizeMap() != 0)
+    bool erorWhithFile = false;
+    try
     {
-        dio->write("Upload complete.\n");
-        dio->write("Please upload your local test CSV file.\n");
-        fname = dio->read();
-        VectorUnclassified mapUnClass(fname);
-            if (mapObj.getSizeMap() != 0){
-                dio->write("Upload complete.\n");
-            }
-            else{
-                throw invalid_argument("invalid input"); ////    
-            } 
+        data->getVectorMap() = VectorMap(fname);
     }
-    else{
-        throw invalid_argument("invalid input"); //// 
+    catch (const invalid_argument &er)
+    {
+        erorWhithFile = true;
+    }
+
+    if (erorWhithFile)
+    {
+        /// SEND INVALID INPUT...............AND RETURN TO MENUE
+        return;
+    }
+    else
+    {
+        dio->write("Please upload your local test CSV file.\n");
+        string fnameTest = dio->read();
+        try
+        {
+            data->getTest() = VectorUnclassified(fname);
+        }
+        catch (const invalid_argument &er)
+        {
+            erorWhithFile = true;
+        }
+
+        if (erorWhithFile)
+        {
+            /// SEND INVALID INPUT...............AND RETURN TO MENUE
+            return;
+        }
+        else
+        {
+            dio->write("Upload complete.\n");
+        }
     }
 }
 

@@ -41,7 +41,8 @@ VectorMap::VectorMap(string fname){
       }
    }
    else {
-      cout<< "invalid input: could not open file" << endl;
+      //cout<< "invalid input: could not open file" << endl;
+      throw invalid_argument("could not open file.");
    }
 
    vector<double> vec;
@@ -62,7 +63,7 @@ VectorMap::VectorMap(string fname){
       int jSize = content[i].size() - 1;
       nameType = content[i][jSize];
 
-      if((i == 0) || DistanceType::checkSameLenght(vec,vecPrev) == 1) //check the lenght. (do it also in the first iteration.)
+      if((i == 0) || CheckFuncs::checkSameLenght(vec,vecPrev) == 1) //check the lenght. (do it also in the first iteration.)
          mapi.insert(pair<vector<double>, string>(vec, nameType));
       else       
          throw invalid_argument("invalid input: The vectors in the file should be in the same lenght."); 
@@ -110,7 +111,7 @@ string VectorMap::knnFunc(vector<double> vecGet, int disNum, int k) {
    multimap<vector<double>, string>::iterator itr;
 
    itr = mapi.begin();
-   if(DistanceType::checkSameLenght(vecGet, itr->first)==1) { //check if vecGet lenght is valid.
+   if(CheckFuncs::checkSameLenght(vecGet, itr->first)==1) { //check if vecGet lenght is valid.
 
    for (itr = mapi.begin(); itr != mapi.end(); itr++) {
       distanceInMap = disType.calcDistanceType(vecGet, itr->first);

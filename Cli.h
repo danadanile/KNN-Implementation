@@ -3,30 +3,23 @@
 #include "Command.h"
 #include "Data.h"
 
-class Cli
-{
-
+class Cli {
 private:
-    DefaultIO *d_io;
-    Command* commands[5];
+    DefaultIO* dio;
     Data* data;
-    //vector<Command *> m_commands;
+    vector<Command*> commands;
 
 public:
+   
     /// @brief constructor
-    /// @param dio default IO
-    Cli(DefaultIO *d_io);
+    /// @param dio  default IO the commands use
+    Cli(DefaultIO* dio);
 
-    /// @brief start cli run
+    /// @brief start cli
     void start();
-    void printMenu();
-    bool chooseFromMenu();
-    bool checkChooseValid(string choose);
-
 
     
-    /// @brief Destructor.
-   // ~Cli();
+    /// @brief destructor
+    ~Cli();
 };
-
 #endif

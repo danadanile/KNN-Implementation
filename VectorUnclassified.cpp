@@ -6,7 +6,7 @@
 #include <math.h>
 #include <map>
 #include <stdexcept>
-#include "DistanceType.h"
+// #include "DistanceType.h"
 #include "CheckFuncs.h"
 #include "VectorUnclassified.h"
 
@@ -62,7 +62,7 @@ VectorUnclassified::VectorUnclassified(string fname){
       //int jSize = content[i].size() - 1;
       nameType = "";
 
-      if((i == 0) || DistanceType::checkSameLenght(vec,vecPrev) == 1) //check the lenght. (do it also in the first iteration.)
+      if((i == 0) || CheckFuncs::checkSameLenght(vec,vecPrev) == 1) //check the lenght. (do it also in the first iteration.)
         vecUnclassified.insert(pair<vector<double>, string>(vec, nameType));
       else       
          throw invalid_argument("invalid input"); 
@@ -70,7 +70,7 @@ VectorUnclassified::VectorUnclassified(string fname){
 
       vecPrev = vec;
       // set value to default
-      vecUnclassified = {};
+      vec = {};
       nameType = "";
    }
 }
@@ -108,8 +108,6 @@ bool VectorUnclassified::updateString(vector<double> vec, string nameClassify){
       {
          return false;
       }
-
-   
 }
 
 
