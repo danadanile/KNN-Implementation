@@ -15,8 +15,12 @@ class Data {
     VectorMap train;
     string disName;
     int k;
-    DistanceType disType;
-    VectorUnclassified test;
+    int disType;
+    VectorUnclassified* test;
+    VectorMap* train;
+    bool trainIsInit;
+    bool testIsInit;
+    bool isClassified;
 
 public:
     Data();
@@ -25,10 +29,15 @@ public:
     int getk();
     void setK(int newK);
     void setDisName(string newDisName);
-    void setDisType(DistanceType newDisType);
-    VectorMap getVectorMap();
-    VectorUnclassified getTest();
-
+    void setDisType(int newDisType);
+    VectorMap* getVectorMap();
+    VectorUnclassified* getTest();
+    bool getTestIsInit();
+    bool getTrainIsInit();
+    void setTrainIsInit();
+    void setTestIsInit();
+    void setTest(string fname);
+    void setTrain(string fname);
 
 };
 #endif

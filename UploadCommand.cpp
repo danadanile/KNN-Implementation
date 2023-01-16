@@ -3,11 +3,12 @@
 
 UploadCommand::UploadCommand(DefaultIO *my_dio, Data *my_data) : Command(my_dio, my_data)
 {
-    this->description = "upload an unclassified csv data file";
+    this->description = "1. upload an unclassified csv data file";
 }
 
 void UploadCommand::execute()
 {
+    
     dio->write("Please upload your local train CSV file.\n");
     string fname = dio->read();
     // data.setVectorMap();
@@ -15,7 +16,9 @@ void UploadCommand::execute()
     bool erorWhithFile = false;
     try
     {
-        data->getVectorMap() = VectorMap(fname);
+        //data->test
+        data->setTrain(fname);
+        data->setTrainIsInit();
     }
     catch (const invalid_argument &er)
     {
@@ -24,7 +27,7 @@ void UploadCommand::execute()
 
     if (erorWhithFile)
     {
-        /// SEND INVALID INPUT...............AND RETURN TO MENUE
+        dio->write("invalid input.\n");
         return;
     }
     else
@@ -33,7 +36,7 @@ void UploadCommand::execute()
         string fnameTest = dio->read();
         try
         {
-            data->getTest() = VectorUnclassified(fname);
+            data->setTest(fnameTest);
         }
         catch (const invalid_argument &er)
         {
@@ -42,7 +45,7 @@ void UploadCommand::execute()
 
         if (erorWhithFile)
         {
-            /// SEND INVALID INPUT...............AND RETURN TO MENUE
+            dio->write("invalid input.\n");
             return;
         }
         else
