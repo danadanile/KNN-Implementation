@@ -1,25 +1,27 @@
 #include "UploadCommand.h"
 #include "VectorUnclassified.h"
 
-UploadCommand::UploadCommand(DefaultIO *dio)
+UploadCommand::UploadCommand(DefaultIO *dio, Data *data):Command(dio,data)
 {
-    this->description = "1. upload an unclassified csv data file";
-    this->m_dio=dio;
+    this->description = "upload an unclassified csv data file";
+    // this->dio=dio;
+    // this->data=data;
 }
-void Command::execute(Data &data){
-    m_dio->write("Please upload your local train CSV file.\n");
-    string fname = m_dio->read();
+
+void Command::execute(){
+    dio->write("Please upload your local train CSV file.\n");
+    string fname = dio->read();
     //data.setVectorMap();
 
     VectorMap mapObj(fname);
     if (mapObj.getSizeMap() != 0)
     {
-        m_dio->write("Upload complete.\n");
-        m_dio->write("Please upload your local test CSV file.\n");
-        fname = m_dio->read();
+        dio->write("Upload complete.\n");
+        dio->write("Please upload your local test CSV file.\n");
+        fname = dio->read();
         VectorUnclassified mapUnClass(fname);
             if (mapObj.getSizeMap() != 0){
-                m_dio->write("Upload complete.\n");
+                dio->write("Upload complete.\n");
             }
             else{
                 throw invalid_argument("invalid input"); ////    
@@ -30,4 +32,6 @@ void Command::execute(Data &data){
     }
 }
 
-
+// string getDescription(){
+//     return "1. upload an unclassified csv data file";
+// }

@@ -8,9 +8,9 @@ class UploadCommand : public Command {
     /// @brief Command2 class for gatting k and distance params
     
 public: 
-   UploadCommand(DefaultIO *dio);
-   void execute(Data &data);
-   virtual ~UploadCommand();
+    UploadCommand(DefaultIO *dio, Data *data);
+    void execute()override;
+    virtual ~UploadCommand();
 
 };
 #endif
