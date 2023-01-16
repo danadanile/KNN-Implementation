@@ -9,7 +9,7 @@ class Cli
 private:
     DefaultIO *d_io;
     Command* commands[5];
-    Data data;
+    Data* data;
     //vector<Command *> m_commands;
 
 public:
