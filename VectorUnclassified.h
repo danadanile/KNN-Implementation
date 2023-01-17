@@ -16,6 +16,7 @@ public:
     VectorUnclassified();
     int GetVectorLength();
     int getSizeMap();
-    bool updateString(vector<double>, string nameClassify);
+    void updateString(vector<double> vec, string nameClassify) ;
+    multimap<vector<double>, string> getVecUnclassified();
 };
 #endif

@@ -153,5 +153,8 @@ string VectorMap::knnFunc(vector<double> vecGet, int disNum, int k) {
 
    }
    return "";
+}
 
+multimap<vector<double>, string> VectorMap::getMapi(){
+    return mapi;
 }

@@ -40,7 +40,7 @@ bool SettingCommand::isValidK(string k_input) {
 void SettingCommand::execute() {
 
     dio->write(string("The current KNN parameters are:")
-                + string(" K = ") + to_string(data->getk())
+                + string(" K = ") + to_string(data->getK())
                 + ", distance metric = " + data->getDisName() + "\n");
 
     string input = dio->read();
@@ -55,11 +55,12 @@ void SettingCommand::execute() {
 
     // If too little arguments were given
     if (vec.size() !=2 ) {
-        dio->write("invalid value for k\n invalid value for metric\n");
+        dio->write("invalid value for k\ninvalid value for metric\n");
         return;
     }
 
     // Validating the K value
+    bool invalidK=false;
     bool validK=isValidK(vec[0]);
     int k;
     if (validK)
@@ -68,8 +69,9 @@ void SettingCommand::execute() {
         }
         else
         {
-            dio->write("Invalid value for K\n");
-            return;
+            //dio->write("invalid value for K\n");
+            invalidK=true;
+           // return;
         }
     
    
@@ -78,8 +80,15 @@ void SettingCommand::execute() {
     int disNum = 0;
     if (disName != "AUC" && disName != "MAN" && disName != "CHB" && disName != "CAN" && disName != "MIN")
     {
-        dio->write("Invalid metric\n");
-        return;
+        if(invalidK){
+            dio->write("invalid value for k\ninvalid value for metric\n");
+            return;
+        }
+        else{
+            dio->write("invalid value for metric\n");
+            return;
+        }
+
     }
 
     enum Choise

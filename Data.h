@@ -12,7 +12,6 @@ using namespace std;
 
 class Data {
     /// @brief distance type by int.
-    VectorMap train;
     string disName;
     int k;
     int disType;
@@ -24,20 +23,23 @@ class Data {
 
 public:
     Data();
-    Data(string fname, string disNum, int k, DistanceType disType);
+    //Data(string fname, string disNum, int k, DistanceType disType);
     string getDisName();
-    int getk();
+    int getK();
     void setK(int newK);
     void setDisName(string newDisName);
     void setDisType(int newDisType);
-    VectorMap* getVectorMap();
     VectorUnclassified* getTest();
+    VectorMap* getTrain();
     bool getTestIsInit();
     bool getTrainIsInit();
-    void setTrainIsInit();
-    void setTestIsInit();
+    void setTrainIsInit(bool b);
+    void setTestIsInit(bool b);
     void setTest(string fname);
     void setTrain(string fname);
+    void initForUpload();
+    void classify();
+    //void updateString(vector<double> vec, string nameClassify);
 
 };
 #endif
