@@ -66,36 +66,8 @@ void Data::setTestIsInit(bool b){
     testIsInit=b;
 }
 
-///// @brief
-///// @param vec vector to find
-///// @param nameClassify name to update.
-///// @return false if is not find it.
-//void Data::updateString(vector<double> vec, string nameClassify) {
-//    multimap<vector<double>, string>::iterator itr;
-//
-//    itr = test->getVecUnclassified().find(vec);
-//    if (itr != test->getVecUnclassified().end()) {
-//        itr->second = nameClassify;
-//    }
-//}
-
-void Data::classify(){
-    multimap<vector<double>, string>::iterator it;
-    string classification;
-    for (it = test->getVecUnclassified().begin(); it != test->getVecUnclassified().end(); it++) {
-        classification = train->knnFunc(it->first, disType, k);
-       // test->updateString(it->first, classification);
-        it->second = classification;
-    }
+void Data::classifyData() {
+    test->classify(train, k, disType);
 }
-
-
-//void Data::initForUpload(){
-//    trainIsInit=false;
-//    testIsInit=false;
-//    isClassified=false;
-//    delete train;
-//    delete test;
-//}
 
 
