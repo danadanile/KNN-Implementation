@@ -23,7 +23,6 @@ class Data {
 
 public:
     Data();
-    //Data(string fname, string disNum, int k, DistanceType disType);
     string getDisName();
     int getK();
     void setK(int newK);
@@ -37,9 +36,6 @@ public:
     void setTestIsInit(bool b);
     void setTest(string fname);
     void setTrain(string fname);
-    void initForUpload();
-    void classify();
-    //void updateString(vector<double> vec, string nameClassify);
-
+    void classifyData();
 };
 #endif

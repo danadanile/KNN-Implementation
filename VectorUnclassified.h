@@ -5,6 +5,7 @@
 #include <string>
 #include <map>
 #include <cstdlib>
+#include "VectorMap.h"
 
 using namespace std;
 
@@ -16,7 +17,8 @@ public:
     VectorUnclassified();
     int GetVectorLength();
     int getSizeMap();
-    void updateString(vector<double> vec, string nameClassify) ;
+    void classify(VectorMap* train, int k, int disType);
     multimap<vector<double>, string> getVecUnclassified();
-};
+
+    };
 #endif

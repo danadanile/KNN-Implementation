@@ -9,6 +9,7 @@
 // #include "DistanceType.h"
 #include "CheckFuncs.h"
 #include "VectorUnclassified.h"
+//#include "VectorMap.h"
 
 using namespace std;
 
@@ -90,41 +91,17 @@ int VectorUnclassified::GetVectorLength(){
 
 }
 
-
-///// @brief
-///// @param vec vector to find
-///// @param nameClassify name to update.
-///// @return false if is not find it.
-//bool VectorUnclassified::updateString(vector<double> vec, string nameClassify){
-//    multimap<vector<double>,string>::iterator itr;
-//    itr = vecUnclassified.begin();
-//
-//      itr = vecUnclassified.find(vec);
-//      if (itr != vecUnclassified.end()){
-//         itr->second=nameClassify;
-//         return true;
-//      }
-//      else
-//      {
-//         return false;
-//      }
-//}
-
-///// @brief
-///// @param vec vector to find
-///// @param nameClassify name to update.
-///// @return false if is not find it.
-//void VectorUnclassified::updateString(vector<double> vec, string nameClassify) {
-//    multimap<vector<double>, string>::iterator itr;
-//
-//    itr = vecUnclassified->find(vec);
-//    if (itr != vecUnclassified->end()) {
-//        itr->second = nameClassify;
-//    }
-//}
 multimap<vector<double>, string> VectorUnclassified::getVecUnclassified(){
     return vecUnclassified;
 }
 
+void VectorUnclassified::classify(VectorMap* train, int k, int disType) {
+    multimap<vector<double>, string>::iterator it;
+    string classification;
+    for (auto it = vecUnclassified.begin(); it != vecUnclassified.end(); it++) {
+        classification = train->knnFunc(it->first, disType, k);
+        it->second = classification;
+    }
+}
 
 
