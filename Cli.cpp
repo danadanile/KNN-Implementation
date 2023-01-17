@@ -3,6 +3,7 @@
 #include "CheckFuncs.h"
 #include "Data.h"
 #include "SettingCommand.h"
+#include "ClassifyCommand.h"
 using namespace std;
 
 
@@ -10,7 +11,7 @@ Cli::Cli(DefaultIO* dio) : dio(dio) {
     data = new Data();
 
     commands = {new UploadCommand(dio, data), new SettingCommand(dio, data),
-                  new UploadCommand(dio, data), new UploadCommand(dio, data),
+                  new ClassifyCommand(dio, data), new UploadCommand(dio, data),
                   new UploadCommand(dio, data), new UploadCommand(dio, data)};
 }
 
@@ -28,10 +29,8 @@ void Cli::start() {
     bool flag = false;
     while(true) {
         //show the menu
-        if (!flag) {
-            dio->write(menu);
-        }
 
+        dio->write(menu);
         // Execute the chosen command
         int index = -1;
 
@@ -40,11 +39,10 @@ void Cli::start() {
             //if a not number input
         } catch (const std::exception& e) {
             dio->write("invalid input\n");
-            flag = true;
+            //flag = true;
             continue;
         }
-        flag = false;
-
+        //flag = false;
         //exit option
         if (index == 8) {
             dio->write("exit\n");

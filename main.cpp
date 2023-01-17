@@ -10,20 +10,21 @@ int main(int argc, char **argv){
   Cli cli(dio);
   cli.start();
 
-   cout<<"ok1"<<endl;
-   string fname= argv[1];
-   VectorMap vec(fname);
-   cout<<"ok2"<<endl;
-   VectorUnclassified mapObj(fname);
+//    cout<<"ok1"<<endl;
+//    string fname1= argv[1];
+//    string fname2= argv[2];
+//    VectorMap vec(fname1);
+//    cout<<"ok2"<<endl;
+//    VectorUnclassified mapObj(fname2);
 
-    multimap<vector<double>,string> myMap;
-    // add key-value pairs to the map
+    // multimap<vector<double>,string> myMap;
+    // // add key-value pairs to the map
 
-    for (auto it = myMap.begin(); it != myMap.end(); ++it) {
-        cout << "Vector: ";
-        for (const auto &i : it->first) {
-            cout << i << " ";
-        }
-    }
+    // for (auto it = myMap.begin(); it != myMap.end(); ++it) {
+    //     cout << "Vector: ";
+    //     for (const auto &i : it->first) {
+    //         cout << i << " ";
+    //     }
+    // }
 }
  
