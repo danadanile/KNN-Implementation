@@ -17,6 +17,15 @@ DownloadCommand::DownloadCommand(DefaultIO *my_dio, Data *my_data) : Command(my_
 }
 
 void DownloadCommand::execute(){
+     if(!data->getTestIsInit() || !data->getTrainIsInit()){
+        dio->write("please upload data\n");
+        return;
+    }
+    if(!data->getIsClassified()){
+        dio->write("please classify the data\n");
+        return;
+    }
+
     multimap<vector<double>, string> vecShow=data->getTest()->getVecUnclassified();
     try{
         //add checks!!!!!!!!!!!!!!! :
@@ -31,7 +40,7 @@ void DownloadCommand::execute(){
         int count = 1;
         for (auto it = vecShow.begin(); it != vecShow.end(); ++it) {
             sResult += to_string(count);
-            sResult += ",";
+            sResult += "\t";
             sResult += it->second;
             sResult += "\n";
 
