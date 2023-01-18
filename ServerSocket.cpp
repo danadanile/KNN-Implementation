@@ -1,10 +1,10 @@
 #include <netinet/in.h>
 #include <unistd.h>
-#include "Server.h"
+#include "ServerSocket.h"
 #include "CheckFuncs.h"
 
 
-Server::Server(int port) : sock(socket(AF_INET, SOCK_STREAM, 0))
+ServerSocket::ServerSocket(int port) : sock(socket(AF_INET, SOCK_STREAM, 0))
 {
     server_port = port;
     msg = ""; // ret messege.
@@ -28,7 +28,7 @@ Server::Server(int port) : sock(socket(AF_INET, SOCK_STREAM, 0))
     }
 }
 
-void Server::enterClient()
+void ServerSocket::enterClient()
 {
     struct sockaddr_in client_sin;
     unsigned int addr_len = sizeof(client_sin);
@@ -39,7 +39,7 @@ void Server::enterClient()
     }
 }
 
-bool Server::IsPort(string &strPort)
+bool ServerSocket::IsPort(string &strPort)
 {
     int port = 0;
     if (CheckFuncs::isNumeric(strPort))
@@ -62,7 +62,7 @@ bool Server::IsPort(string &strPort)
     }
 }
 
-const string Server::RecFromClient(int sizeToGet)
+const string ServerSocket::RecFromClient(int sizeToGet)
 {
     char bufferSize[sizeToGet + 1] = {0}; // for the message
     int read_bytes = recv(client_sock, bufferSize, sizeToGet, 0);
@@ -116,7 +116,7 @@ const string Server::RecFromClient(int sizeToGet)
     return strRet;
 }
 
-void Server::sendToClient(string &str)
+void ServerSocket::sendToClient(const string &str)
 {
     int sent_bytes = send(client_sock, str.c_str(), str.length(), 0);
     if (sent_bytes < 0)
@@ -125,12 +125,12 @@ void Server::sendToClient(string &str)
     }
 }
 
-void Server::closeClient()
+void ServerSocket::closeClient()
 {
     close(client_sock);
 }
 
-void Server::closeServer()
+void ServerSocket::closeServer()
 {
     close(sock);
 }
