@@ -19,6 +19,16 @@ DisplayCommand::DisplayCommand(DefaultIO *my_dio, Data *my_data) : Command(my_di
 
 void DisplayCommand::execute(){
     multimap<vector<double>, string> vecShow=data->getTest()->getVecUnclassified();
+     if(!data->getTestIsInit() || !data->getTrainIsInit()){
+        dio->write("please upload data\n");
+        return;
+    }
+    if(!data->getIsClassified()){
+        dio->write("please classify the data\n");
+        return;
+    }
+
+
     try{
         //add checks!!!!!!!!!!!!!!! :
 
@@ -32,11 +42,11 @@ void DisplayCommand::execute(){
         int count = 1;
         for (auto it = vecShow.begin(); it != vecShow.end(); ++it) {
             sResult += to_string(count);
-            sResult += " ";
+            sResult += "\t";
             sResult += it->second;
             sResult += "\n";
 
-                count++;
+            count++;
         }
         sResult += "Done.\n";
         dio->write(sResult);
@@ -47,8 +57,4 @@ void DisplayCommand::execute(){
         dio->write(er.what());
         return;
     }
-
-    
-
-
 }

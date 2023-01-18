@@ -58,6 +58,10 @@ bool Data::getTestIsInit() {
  return testIsInit;
 }
 
+bool Data::getIsClassified() {
+ return isClassified;
+}
+
 void Data::setTrainIsInit(bool b){
     trainIsInit=b;
 }

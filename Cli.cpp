@@ -76,4 +76,3 @@ Cli::~Cli() {
         delete commands[i];
     }
 }
-
