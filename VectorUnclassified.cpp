@@ -61,7 +61,7 @@ VectorUnclassified::VectorUnclassified(string fname){
       } 
 
       //int jSize = content[i].size() - 1;
-      nameType = "";
+      nameType = "t";
 
       if((i == 0) || CheckFuncs::checkSameLenght(vec,vecPrev) == 1) //check the lenght. (do it also in the first iteration.)
         vecUnclassified.insert(pair<vector<double>, string>(vec, nameType));
@@ -73,6 +73,20 @@ VectorUnclassified::VectorUnclassified(string fname){
       // set value to default
       vec = {};
       nameType = "";
+
+
+
+
+
+
+      for (auto it = vecUnclassified.begin(); it != vecUnclassified.end(); ++it) {
+        cout << "\nVector: ";
+        for (const auto &i : it->first) {
+            cout << i << " ";
+        }
+            cout <<it->second;
+      }
+         cout <<"\n";
    }
 }
 
@@ -102,6 +116,7 @@ void VectorUnclassified::classify(VectorMap* train, int k, int disType) {
         classification = train->knnFunc(it->first, disType, k);
         it->second = classification;
     }
+    
 }
 
 
