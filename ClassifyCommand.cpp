@@ -10,8 +10,8 @@ void ClassifyCommand::execute() {
         return;
     }
     //clasify data:
-    data->classify();
-
+    data->classifyData();
+    data->SetIsClassified(true);
     // Inform the user the classification is done
     dio->write("Classifying data complete.\n");
 }

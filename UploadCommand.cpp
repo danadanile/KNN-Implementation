@@ -11,7 +11,7 @@ void UploadCommand::execute()
 
     dio->write("Please upload your local train CSV file.\n");
     string fname = dio->read();
-   
+    data->SetIsClassified(false);
 
     try
     {

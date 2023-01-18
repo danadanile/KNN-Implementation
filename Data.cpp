@@ -70,4 +70,8 @@ void Data::classifyData() {
     test->classify(train, k, disType);
 }
 
+void Data::SetIsClassified(bool b) {
+    isClassified=b;
+}
+
 

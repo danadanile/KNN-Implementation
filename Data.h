@@ -37,5 +37,6 @@ public:
     void setTest(string fname);
     void setTrain(string fname);
     void classifyData();
+    void Data::SetIsClassified(bool b);
 };
 #endif

@@ -1,0 +1,65 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <sstream>
+#include <map>
+#include <stdexcept>
+#include <iostream>  
+#include<string>  
+#include "DownloadCommand.h"
+#include "VectorUnclassified.h"
+
+using namespace std;  
+
+DownloadCommand::DownloadCommand(DefaultIO *my_dio, Data *my_data) : Command(my_dio, my_data){
+    this->description = "5. download results";
+}
+
+void DownloadCommand::execute(){
+    multimap<vector<double>, string> vecShow=data->getTest()->getVecUnclassified();
+    try{
+        //add checks!!!!!!!!!!!!!!! :
+
+        // if(data->classifyData==false){
+        //     throw invalid_argument("please classify the data");
+        // }
+        // if(data->getTest???==false){
+        //     throw invalid_argument("please classify the data");
+        // }
+        string sResult="";
+        int count = 1;
+        for (auto it = vecShow.begin(); it != vecShow.end(); ++it) {
+            sResult += to_string(count);
+            sResult += ",";
+            sResult += it->second;
+            sResult += "\n";
+
+                count++;
+        }
+        //dio->write(sResult);
+
+
+        //string data = "col1,col2,col3\nval1,val2,val3\nval4,val5,val6\n";
+        //std::string filePath = "path/to/file.csv";
+        string filePath = dio->read();
+        filePath += "/file.csv";
+        ofstream file(filePath);
+        if (file.is_open()) {
+        file << sResult;
+        file.close();
+        } else {
+        // Handle the case where the file could not be opened
+        }
+
+
+    }
+    catch (const invalid_argument &er){
+        dio->write(er.what());
+        return;
+    }
+
+    
+
+
+}
