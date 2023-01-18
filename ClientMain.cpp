@@ -9,7 +9,7 @@
 #include <sstream>
 #include "DistanceType.h"
 #include "CheckFuncs.h"
-#include "Client.h"
+#include "ClientSocket.h"
 #define MAX_TO_GET 4096
 using namespace std;
 
@@ -61,7 +61,7 @@ int main(int argc, char **argv)
     // check the port.
     int port = -1;
     string strPort = string(argv[2]);
-    if (Client::isPort(strPort))
+    if (ClientSocket::isPort(strPort))
     {
         port = stoi(argv[2]);
     }
@@ -73,7 +73,7 @@ int main(int argc, char **argv)
 
     try
     {
-        Client cli(port, argv[1]);
+        ClientSocket cli(port, argv[1]);
         while (true)
         {
             string userInput;

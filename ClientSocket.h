@@ -3,12 +3,12 @@
 #include <string>
 using namespace std;
 
-class Client {
+class ClientSocket {
     /// @brief client class
     int sock;
 
 public: 
-    Client(const int portC, const char* ip);
+    ClientSocket(const int portC, const char* ip);
     static bool isPort(string &strPort);
     const string recFromServer(int sizeToGet);
     void sendToServer(string &str);

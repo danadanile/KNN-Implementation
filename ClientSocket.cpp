@@ -1,13 +1,13 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-#include "Client.h"
+#include "ClientSocket.h"
 #include "CheckFuncs.h"
 
 /// @brief constructor
 /// @param portC the port
 /// @param ip the ip
-Client::Client(const int portC, const char *ip)
+ClientSocket::ClientSocket(const int portC, const char *ip)
 {
     sock = socket(AF_INET, SOCK_STREAM, 0);
     if (sock < 0)
@@ -28,7 +28,7 @@ Client::Client(const int portC, const char *ip)
 /// @brief checks if port is valid
 /// @param strPort 
 /// @return true if valid
-bool Client::isPort(string &strPort)
+bool ClientSocket::isPort(string &strPort)
 {
     int port = 0;
     if (CheckFuncs::isNumeric(strPort))
@@ -54,7 +54,7 @@ bool Client::isPort(string &strPort)
 /// @brief recive message from server
 /// @param sizeToGet the size of the message to read
 /// @return the message
-const string Client::recFromServer(int sizeToGet)
+const string ClientSocket::recFromServer(int sizeToGet)
 {
     string strRet = "";
     char buffer[sizeToGet] = {0};
@@ -80,7 +80,7 @@ const string Client::recFromServer(int sizeToGet)
 
 /// @brief send message to server
 /// @param str the message to send
-void Client::sendToServer(string &str)
+void ClientSocket::sendToServer(string &str)
 {
     int data_len = str.length();
 
@@ -93,7 +93,7 @@ void Client::sendToServer(string &str)
 }
 
 /// @brief close client conection 
-void Client::closeClient()
+void ClientSocket::closeClient()
 {
     close(sock);
 }
