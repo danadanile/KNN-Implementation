@@ -1,11 +1,11 @@
-#ifndef SERVER_H_
-#define SERVER_H_
+#ifndef SERVERSOCKET_H_
+#define SERVERSOCKET_H_
 #include <cstring>
 #include <string>
 #include <iostream>
 using namespace std;
 
-class Server {
+class ServerSocket {
     /// @brief server class
     int server_port;
     int sock;
@@ -13,11 +13,11 @@ class Server {
     int client_sock;
 
 public: 
-    Server(int disType);
+    ServerSocket(int disType);
     static bool IsPort(string &strPort);
     void enterClient();
     const string RecFromClient(int sizeToGet);
-    void sendToClient(string &str);
+    void sendToClient(const string &str);
     void closeClient();
     void closeServer();
 };
