@@ -4,6 +4,8 @@
 #include "Data.h"
 #include "SettingCommand.h"
 #include "ClassifyCommand.h"
+#include "DisplayCommand.h"
+#include "DownloadCommand.h"
 using namespace std;
 
 
@@ -11,8 +13,8 @@ Cli::Cli(DefaultIO* dio) : dio(dio) {
     data = new Data();
 
     commands = {new UploadCommand(dio, data), new SettingCommand(dio, data),
-                  new ClassifyCommand(dio, data), new UploadCommand(dio, data),
-                  new UploadCommand(dio, data), new UploadCommand(dio, data)};
+                  new UploadCommand(dio, data), new DisplayCommand(dio, data),
+                  new DownloadCommand(dio, data), new UploadCommand(dio, data)};
 }
 
 void Cli::start() {
