@@ -26,6 +26,8 @@ private:
     void classify();
     void display();
     void download();
+    string printMess(string s);
+    string getFromUser(string s);
 
     //void general();
     //void downloadIntoFile(const string& path, const string& output);
