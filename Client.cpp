@@ -12,8 +12,78 @@
 #include "DistanceType.h"
 #include "CheckFuncs.h"
 #define MAX_TO_GET 4096
+#define SIZE_READ 10
 using namespace std;
 
+
+Client::Client(ClientSocket *clientS)
+{
+    // clientSock = new ClientSocket();
+}
+
+string Client::printMess(string s)
+{
+    cout << s << endl;
+}
+string Client::getFromUser(string s)
+{
+    getline(cin, s);
+}
+
+void Client::upload()
+{
+    for (int i = 0; i < 2; i++)
+    {
+        string message, path;
+        // read
+        message = clientSock->recFromServer(SIZE_READ);
+        // client->socketRead(message,client->getSocket());
+        printMess(message);
+        getFromUser(path);
+        ifstream openFile;
+        openFile.open(path);
+
+        if (!openFile.is_open())
+        {
+            message = "invalid input";
+        }
+        else
+        {
+            message = "Succeed";
+        }
+        // write
+        clientSock->sendToServer(message);
+        // client->socketWrite(message,client->getSocket());
+        if (message == "invalid input")
+        {
+            // cout << message << endl;
+            printMess(message);
+            // return false;
+        }
+        string buffer;
+        while (openFile)
+        {
+            buffer.clear();
+            getline(openFile, buffer);
+            clientSock->sendToServer(buffer);
+            // client->socketWrite(buffer,client->getSocket());
+        }
+        buffer = "end file";
+        clientSock->sendToServer(buffer);
+        // client->socketWrite(buffer,client->getSocket());
+
+        buffer.clear();
+        buffer = clientSock->recFromServer(SIZE_READ);
+
+        printMess(buffer); // print complete or not
+
+        if (buffer == "invalid input")
+        {
+            return;
+        }
+        continue;
+    }
+}
 
 bool checkChooseValid(string choose){
     if(CheckFuncs::isNumeric(choose)) {
@@ -114,62 +184,6 @@ void Client::start(){
 
 
 
-void Client::upload()
-{
-    for (int i = 0; i < 2; i++)
-    {
-        string message, path;
-        // read
-        message = clientSock->recFromServer(SIZE_READ);
-        // client->socketRead(message,client->getSocket());
-        printMess(message);
-        getFromUser(path);
-        ifstream openFile;
-        openFile.open(path);
-
-        if (!openFile.is_open())
-        {
-            message = "invalid input";
-        }
-        else
-        {
-            message = "Succeed";
-        }
-        // write
-        clientSock->sendToServer(message);
-        // client->socketWrite(message,client->getSocket());
-        if (message == "invalid input")
-        {
-            // cout << message << endl;
-            printMess(message);
-            // return false;
-        }
-        string buffer;
-        while (openFile)
-        {
-            buffer.clear();
-            getline(openFile, buffer);
-            clientSock->sendToServer(buffer);
-            // client->socketWrite(buffer,client->getSocket());
-        }
-        buffer = "end file";
-        clientSock->sendToServer(buffer);
-        // client->socketWrite(buffer,client->getSocket());
-
-        buffer.clear();
-        buffer = clientSock->recFromServer(SIZE_READ);
-
-        printMess(buffer); // print complete or not
-
-        if (buffer == "invalid input")
-        {
-            return;
-        }
-        continue;
-    }
-}
-
-
 
 void Client::settings() {
     string message;
@@ -205,17 +219,6 @@ void Client::settings() {
         //printToScreen(message);
     }
 }
-
-
-
-// /// @brief checks if file can be open
-// /// @param path file path
-// /// @param openFile ifstream
-// /// @return true is can open.
-// bool openFile(string &path, ifstream &openFile){
-//     openFile.open(path);
-//     retur openFile.is_open();
-// }
 
 
 
