@@ -14,7 +14,7 @@ private:
 public:
     /// @brief constructor
     /// @param socket  the server socket
-    SocketIO(ServerSocket& socket);
+    SocketIO(ServerSocket socket);
 
     /// @brief read user input and return strung
     /// @return string input

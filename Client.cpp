@@ -1,30 +1,178 @@
 #include "Client.h"
+#include "ClientSocket.h"
 #include <iostream>
+#include <sys/socket.h>
+#include <stdio.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <string.h>
+#include <vector>
+#include <sstream>
+#include "DistanceType.h"
+#include "CheckFuncs.h"
+using namespace std;
 
-Client::Client(SocketIO *sockIO) : clientDio(sockIO)
-{
-    userDio = new StandartIO();
+Client::Client(ClientSocket* clientS) : clientSock(){
+
+}
+void Client::start(){
+
+    try
+    {
+        while (true)
+        {
+            string msgFromServer, input;
+            // int socketCommWithServer = client->getSocket();
+            //get menu
+            msgFromServer = clientDio->read();
+        //client->socketRead(msg, socketCommWithServer);
+        //print menu
+        userDio->write(msg);
+        // printToScreen(msg);
+        input.clear();
+        //return choose
+        input = userDio->read();
+        // input = getInput();
+        clientDio->write(input);
+        //client->socketWrite(input, socketCommWithServer);
+        //wait for checking validation choose
+        msg.clear();
+        msg = clientDio->read();
+        //client->socketRead(msg, socketCommWithServer);
+        //choose was wrong
+        if (msg == "invalid input") {
+            userDio->write(msg);
+            //printToScreen(msg);
+            continue;
+        }
+        int choose = stoi(input);
+        // int choose = validInt(input, choose);
+        if(choose == 8) {
+            return;
+        }
+        switch (choose) {
+            case 1:
+                upload();
+                break;
+            case 2:
+                settings();
+                break;
+            case 3:
+                classify();
+                break;
+            case 4:
+                display();
+                break;
+            case 5:
+                download();
+                break;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            string userInput;
+            getline(cin, userInput);
+            if (userInput.empty())
+            {
+                cout << "invalid input" << endl;
+                continue;
+            }
+            if (userInput == "-1") {
+                break;
+            }
+            vector<string> vec;
+            getInput(vec, userInput);
+
+            // if we get less than 3 parameters from user
+            if (vec.size() < 3)
+            {
+                cout << "invalid input" << endl;
+                continue;
+            }
+
+            string dis_input = vec[vec.size() - 2];
+            string k_input = vec[vec.size() - 1];
+
+            if (CheckFuncs::checkKValid(k_input))
+            {
+                int k = stoi(k_input);
+            }
+
+            else
+            {
+                cout << "invalid input" << endl;
+                continue;
+            }
+
+            if (dis_input != "AUC" && dis_input != "MAN" && dis_input != "CHB" && dis_input != "CAN" & dis_input != "MIN")
+            {
+                cout << "invalid input" << endl;
+                continue;
+            }
+
+            bool flag = 0;
+            int vectorSize = vec.size();
+            for (int i = 0; i < vectorSize - 2; i++)
+            {
+                if (!CheckFuncs::isNumber(vec[i]))
+                { // check if
+                    cout << "invalid input" << endl;
+                    flag = 1;
+                    break;
+                }
+            }
+            if (flag)
+            {
+                continue;
+            }
+
+            addZeros(userInput);
+            cli.sendToServer(userInput);
+            cout << cli.recFromServer(MAX_TO_GET) << endl;
+        }
+        string finish = "-1";
+        addZeros(finish);
+        cli.sendToServer(finish);
+        cli.closeClient();
+        return 0;
+    }
+    catch (const runtime_error &er)
+    { // to exit the client
+        cout << er.what() << endl;
+        return 0;
+    }
+
+
+
 }
 
-// std::string getInput() {
-//     string buff;
-//     getline(cin,buff);
-//     return buff;
-// }
 
-void printTo(string s)
-{
-    cout << s << endl;
-}
 
-// bool validInt(string& str,int& choose) {
-//     stringstream intStream;
-//     intStream << str;
-//     if (!(intStream >> choose) || !intStream.eof()) {
-//         return false;
-//     }
-//     return true;
-// }
 
 /// @brief checks if file can be open
 /// @param path file path
@@ -35,6 +183,8 @@ bool openFile(string &path, ifstream &openFile)
     openFile.open(path);
     retur openFile.is_open();
 }
+
+
 
 bool Client::upload()
 {

@@ -3,7 +3,7 @@
 SocketIO::SocketIO(ServerSocket& socket) : socket(socket) {}
 
 std::string SocketIO::read() {
-    return socket.RecFromClient(4096);
+    return socket.RecFromClient(10);
 }
 
 void SocketIO::write(const string &str) {

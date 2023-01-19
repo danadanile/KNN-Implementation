@@ -10,6 +10,7 @@
 #include "DistanceType.h"
 #include "CheckFuncs.h"
 #include "ClientSocket.h"
+#include "Client.h"
 #define MAX_TO_GET 4096
 using namespace std;
 
@@ -52,6 +53,8 @@ enum Choise
 int main(int argc, char **argv)
 {
 
+
+
     if (argc != 3)
     {
         cout << "invalid argument" << endl;
@@ -73,75 +76,9 @@ int main(int argc, char **argv)
 
     try
     {
-        ClientSocket cli(port, argv[1]);
-        while (true)
-        {
-            string userInput;
-            getline(cin, userInput);
-            if (userInput.empty())
-            {
-                cout << "invalid input" << endl;
-                continue;
-            }
-            if (userInput == "-1")
-            {
-                break;
-            }
-            vector<string> vec;
-            getInput(vec, userInput);
-
-            // if we get less than 3 parameters from user
-            if (vec.size() < 3)
-            {
-                cout << "invalid input" << endl;
-                continue;
-            }
-
-            string dis_input = vec[vec.size() - 2];
-            string k_input = vec[vec.size() - 1];
-
-            if (CheckFuncs::checkKValid(k_input))
-            {
-                int k = stoi(k_input);
-            }
-
-            else
-            {
-                cout << "invalid input" << endl;
-                continue;
-            }
-
-            if (dis_input != "AUC" && dis_input != "MAN" && dis_input != "CHB" && dis_input != "CAN" & dis_input != "MIN")
-            {
-                cout << "invalid input" << endl;
-                continue;
-            }
-
-            bool flag = 0;
-            int vectorSize = vec.size();
-            for (int i = 0; i < vectorSize - 2; i++)
-            {
-                if (!CheckFuncs::isNumber(vec[i]))
-                { // check if
-                    cout << "invalid input" << endl;
-                    flag = 1;
-                    break;
-                }
-            }
-            if (flag)
-            {
-                continue;
-            }
-
-            addZeros(userInput);
-            cli.sendToServer(userInput);
-            cout << cli.recFromServer(MAX_TO_GET) << endl;
-        }
-        string finish = "-1";
-        addZeros(finish);
-        cli.sendToServer(finish);
-        cli.closeClient();
-        return 0;
+        ClientSocket* clientS=new ClientSocket(port, argv[1]);
+        Client* cli = new Client(clientS);
+        cli->start();
     }
     catch (const runtime_error &er)
     { // to exit the client

@@ -7,6 +7,7 @@
 #include "DefaultIO.h"
 #include "StandartIO.h"
 #include "SocketIO.h"
+#include "ClientSocket.h"
 using namespace std;
 
 class Client {
@@ -17,18 +18,22 @@ private:
     string message;
     StandartIO* userDio;
     SocketIO* clientDio;
-    //std::unique_ptr<ClientSocket> m_socket;
+    ClientSocket* clientSock;
 
     static string userInput();
     void upload();
-    //void download();
+    void settings();
+    void classify();
+    void display();
+    void download();
+
     //void general();
     //void downloadIntoFile(const string& path, const string& output);
 
 public:
-    Client(SocketIO *);
+    Client(ClientSocket* clientS);
+    void start();
     void communicate();
 };
-
 
 #endif 
