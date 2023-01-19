@@ -12,7 +12,7 @@ class VectorMap {
     /// @brief map of the file cataloged by vector and string name.
     multimap<vector<double>, string> mapi;
 public:
-    VectorMap(string fname);
+    VectorMap(stringstream &stream);
     VectorMap();
     string knnFunc(vector<double> vecGet, int disNum, int k);
     int GetVectorLength();

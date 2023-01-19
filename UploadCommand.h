@@ -12,5 +12,6 @@ class UploadCommand : public Command
 public:
     UploadCommand(DefaultIO *my_dio, Data *my_data);
     void execute() override;
+    
 };
 #endif

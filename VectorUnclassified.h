@@ -13,7 +13,7 @@ class VectorUnclassified {
     /// @brief map of the file cataloged by vector and string name.
     multimap<vector<double>, string> vecUnclassified;
 public:
-    VectorUnclassified(string fname);
+    VectorUnclassified(stringstream &fname);
     VectorUnclassified();
     int GetVectorLength();
     int getSizeMap();
