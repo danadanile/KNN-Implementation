@@ -1,5 +1,5 @@
-#ifndef CLIENT_H_
-#define CLIENT_H_
+#ifndef CLIENTSOCKET_H_
+#define CLIENTSOCKET_H_
 #include <string>
 using namespace std;
 
