@@ -1,29 +1,64 @@
 #include "UploadCommand.h"
 #include "VectorUnclassified.h"
+#include <sstream>
 
 UploadCommand::UploadCommand(DefaultIO *my_dio, Data *my_data) : Command(my_dio, my_data)
 {
     this->description = "1. upload an unclassified csv data file";
 }
+stringstream readFileContent(DefaultIO *dio)
+{
+    string buffer;
+    stringstream stream;
+    buffer.clear();
+    buffer = dio->read();
+    if (buffer != "file end")
+    {
+        buffer.erase(buffer.find_last_not_of('\r') + 1);
+        stream << buffer;
+        while (true)
+        {
+            buffer.clear();
+            buffer = dio->read();
+            if (buffer == "file end")
+            {
+                break;
+            }
+            buffer.erase(buffer.find_last_not_of('\r') + 1);
+            stream << '\n'
+                   << buffer;
+        }
+    }
+    return stream;
+}
+
 
 void UploadCommand::execute()
 {
-
+    string buffer;
     dio->write("Please upload your local train CSV file.\n");
-    string fname = dio->read();
+    // string fname = dio->read();
+    if (dio->read() == "invalid input")
+    {
+        return;
+    }
+    stringstream stream=readFileContent(dio);
+    buffer.clear();
     data->SetIsClassified(false);
 
     try
     {
-        if(data->getTrainIsInit()){
+        if (data->getTrainIsInit())
+        {
             delete data->getTrain();
         }
-        data->setTrain(fname);
-
+        data->setTrain(stream);
+        dio->write("Upload complete.\n");
     }
     catch (const invalid_argument &er)
     {
-        if(data->getTestIsInit()){
+        if (data->getTestIsInit())
+        {
             delete data->getTest();
             data->setTestIsInit(false);
         }
@@ -32,15 +67,20 @@ void UploadCommand::execute()
         return;
     }
 
-    
     dio->write("Please upload your local test CSV file.\n");
-    string fnameTest = dio->read();
+    if (dio->read() == "invalid input")
+    {
+        return;
+    }
+    stringstream streamTest=readFileContent(dio);
+
     try
     {
-        if(data->getTestIsInit()){
+        if (data->getTestIsInit())
+        {
             delete data->getTest();
         }
-        data->setTest(fnameTest);
+        data->setTest(streamTest);
     }
     catch (const invalid_argument &er)
     {
@@ -54,11 +94,10 @@ void UploadCommand::execute()
     data->setTrainIsInit(true);
     data->setTestIsInit(true);
     dio->write("Upload complete.\n");
-    }
+}
 
-
-///home/danadanilenko/CLionProjects/testEx4/iris_Unclassified.csv
-///home/danadanilenko/CLionProjects/testEx4/iris_classified.csv
+/// home/danadanilenko/CLionProjects/testEx4/iris_Unclassified.csv
+/// home/danadanilenko/CLionProjects/testEx4/iris_classified.csv
 // string getDescription(){
 //     return "1. upload an unclassified csv data file";
 // }

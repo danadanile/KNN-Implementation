@@ -11,12 +11,82 @@
 #include <sstream>
 #include "DistanceType.h"
 #include "CheckFuncs.h"
+#define SIZE_READ 10
 using namespace std;
 
-Client::Client(ClientSocket* clientS) : clientSock(){
-
+Client::Client(ClientSocket *clientS)
+{
+    // clientSock = new ClientSocket();
 }
-void Client::start(){
+
+string Client::printMess(string s)
+{
+    cout << s << endl;
+}
+string Client::getFromUser(string s)
+{
+    getline(cin, s);
+}
+
+void Client::upload()
+{
+    for (int i = 0; i < 2; i++)
+    {
+        string message, path;
+        // read
+        message = clientSock->recFromServer(SIZE_READ);
+        // client->socketRead(message,client->getSocket());
+        printMess(message);
+        getFromUser(path);
+        ifstream openFile;
+        openFile.open(path);
+
+        if (!openFile.is_open())
+        {
+            message = "invalid input";
+        }
+        else
+        {
+            message = "Succeed";
+        }
+        // write
+        clientSock->sendToServer(message);
+        // client->socketWrite(message,client->getSocket());
+        if (message == "invalid input")
+        {
+            // cout << message << endl;
+            printMess(message);
+            // return false;
+        }
+        string buffer;
+        while (openFile)
+        {
+            buffer.clear();
+            getline(openFile, buffer);
+            clientSock->sendToServer(buffer);
+            // client->socketWrite(buffer,client->getSocket());
+        }
+        buffer = "end file";
+        clientSock->sendToServer(buffer);
+        // client->socketWrite(buffer,client->getSocket());
+
+        buffer.clear();
+        buffer = clientSock->recFromServer(SIZE_READ);
+
+        printMess(buffer); // print complete or not
+
+        if (buffer == "invalid input")
+        {
+            return;
+        }
+        continue;
+    }
+}
+
+
+
+void Client::start()
+{
 
     try
     {
@@ -24,34 +94,37 @@ void Client::start(){
         {
             string msgFromServer, input;
             // int socketCommWithServer = client->getSocket();
-            //get menu
+            // get menu
             msgFromServer = clientDio->read();
-        //client->socketRead(msg, socketCommWithServer);
-        //print menu
-        userDio->write(msg);
-        // printToScreen(msg);
-        input.clear();
-        //return choose
-        input = userDio->read();
-        // input = getInput();
-        clientDio->write(input);
-        //client->socketWrite(input, socketCommWithServer);
-        //wait for checking validation choose
-        msg.clear();
-        msg = clientDio->read();
-        //client->socketRead(msg, socketCommWithServer);
-        //choose was wrong
-        if (msg == "invalid input") {
+            // client->socketRead(msg, socketCommWithServer);
+            // print menu
             userDio->write(msg);
-            //printToScreen(msg);
-            continue;
-        }
-        int choose = stoi(input);
-        // int choose = validInt(input, choose);
-        if(choose == 8) {
-            return;
-        }
-        switch (choose) {
+            // printToScreen(msg);
+            input.clear();
+            // return choose
+            input = userDio->read();
+            // input = getInput();
+            clientDio->write(input);
+            // client->socketWrite(input, socketCommWithServer);
+            // wait for checking validation choose
+            msg.clear();
+            msg = clientDio->read();
+            // client->socketRead(msg, socketCommWithServer);
+            // choose was wrong
+            if (msg == "invalid input")
+            {
+                userDio->write(msg);
+                // printToScreen(msg);
+                continue;
+            }
+            int choose = stoi(input);
+            // int choose = validInt(input, choose);
+            if (choose == 8)
+            {
+                return;
+            }
+            switch (choose)
+            {
             case 1:
                 upload();
                 break;
@@ -67,33 +140,7 @@ void Client::start(){
             case 5:
                 download();
                 break;
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            }
 
             string userInput;
             getline(cin, userInput);
@@ -102,7 +149,8 @@ void Client::start(){
                 cout << "invalid input" << endl;
                 continue;
             }
-            if (userInput == "-1") {
+            if (userInput == "-1")
+            {
                 break;
             }
             vector<string> vec;
@@ -166,13 +214,7 @@ void Client::start(){
         cout << er.what() << endl;
         return 0;
     }
-
-
-
 }
-
-
-
 
 /// @brief checks if file can be open
 /// @param path file path
@@ -183,8 +225,6 @@ bool openFile(string &path, ifstream &openFile)
     openFile.open(path);
     retur openFile.is_open();
 }
-
-
 
 bool Client::upload()
 {

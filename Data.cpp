@@ -42,11 +42,11 @@ VectorUnclassified* Data::getTest() {
 VectorMap* Data::getTrain() {
     return train;
 }
-void Data::setTrain(string fname){
+void Data::setTrain(stringstream &fname){
     train = new VectorMap(fname);
 }
 
-void Data::setTest(string fname){
+void Data::setTest(stringstream &fname){
     test = new VectorUnclassified(fname);
 }
 

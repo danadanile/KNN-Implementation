@@ -34,8 +34,8 @@ public:
     bool getTrainIsInit();
     void setTrainIsInit(bool b);
     void setTestIsInit(bool b);
-    void setTest(string fname);
-    void setTrain(string fname);
+    void setTest(stringstream &fname);
+    void setTrain(stringstream &fname);
     void classifyData();
     void SetIsClassified(bool b);
     bool getIsClassified();
