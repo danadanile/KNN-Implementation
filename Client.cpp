@@ -9,36 +9,42 @@
 #include <string.h>
 #include <vector>
 #include <sstream>
-#include <thread>
 #include "DistanceType.h"
 #include "CheckFuncs.h"
+#include <thread>
 #define MAX_TO_GET 4096
 #define SIZE_READ 10
 using namespace std;
 
-Client::Client(ClientSocket *clientS)
-{
-    // clientSock = new ClientSocket();////checkkkk
+
+// Client::Client(ClientSocket *clientS){
+//     // clientSock = new ClientSocket();
+// }
+
+Client::Client(ClientSocket* clientS) : clientSock(clientS){
 }
 
-string Client::printMes(string s)
-{
+void Client::printMess(string s){
     cout << s << endl;
 }
-string Client::getFromUser(string s) //////delete
-{
+
+string Client::getFromUser(string s){
     getline(cin, s);
+    return s;
 }
+
 
 void Client::upload()
 {
     for (int i = 0; i < 2; i++)
     {
+        cout<<"uploadCCCC"<<endl;
         string message, path;
         // read
         message = clientSock->recFromServer(SIZE_READ);
         // client->socketRead(message,client->getSocket());
-        printMes(message);
+        printMess(message);
+        cout<<message<<endl;
         getFromUser(path);
         ifstream openFile;
         openFile.open(path);
@@ -57,7 +63,7 @@ void Client::upload()
         if (message == "invalid input")
         {
             // cout << message << endl;
-            printMes(message);
+            printMess(message);
             // return false;
         }
         string buffer;
@@ -75,7 +81,7 @@ void Client::upload()
         buffer.clear();
         buffer = clientSock->recFromServer(SIZE_READ);
 
-        printMes(buffer); // print complete or not
+        printMess(buffer); // print complete or not
 
         if (buffer == "invalid input")
         {
@@ -89,7 +95,7 @@ void Client::settings()
 {
     string message;
     message = clientSock->recFromServer(MAX_TO_GET);
-    printMes(message);
+    printMess(message);
     // cout << message << endl;
     message.clear();
     message = clientSock->recFromServer(MAX_TO_GET);
@@ -108,7 +114,7 @@ void Client::settings()
     // client->socketRead(message,client->getSocket());
     if (message != "valid")
     {
-        printMes(message);
+        printMess(message);
         // printToScreen(message);
     }
 }
@@ -116,7 +122,7 @@ void Client::settings()
 void Client::display() {
     string message;
     message = clientSock->recFromServer(MAX_TO_GET);
-    printMes(message);
+    printMess(message);
 //    client->socketRead(msg,client->getSocket());
 //    printToScreen(msg);
 }
@@ -143,24 +149,7 @@ void Client::writeToFile(const string& path, const string& output) {
 
 
 
-bool checkChooseValid(string choose)
-{
-    if (CheckFuncs::isNumeric(choose))
-    {
-        int c = stoi(choose);
-        if (c < 1 || c > 8 || c == 7)
-        {
-            throw invalid_argument("invalid input");
-        }
-    }
-    else
-    {
-        return c;
-    }
-    return 0;
-}
-
-void addZeros(string &input)
+void Client:: addZeros(string &input)
 {
     int inputLength = input.length();
     // declare a stream object
@@ -170,72 +159,105 @@ void addZeros(string &input)
     input.insert(0, addZero, '0'); // insert 0 addZero times in position 0;
 }
 
-void Client::start()
+
+bool checkChooseValid(string choose)
 {
+    if (CheckFuncs::isNumeric(choose))
+    {
+        int c = stoi(choose);
+        if (c < 1 || c > 8 || c == 7)
+        {
+            return false;
+        }
+    }
+    else
+    {
+        return true;
+    }
+    return false;
+}
+
+
+void Client::start(){
 
     try
     {
         while (true)
         {
             string msgFromServer, chooseInput;
-            msgFromServer = "";
-            chooseInput = "";
+            msgFromServer="";
+            chooseInput="";
 
-            // get the menu from server:
-            msgFromServer = clientSock->recFromServer(MAX_TO_GET);
-            // if (msgFromServer == "invalid input") {
+            //get the menu from server:
+            msgFromServer = clientSock->recFromServer(MAX_TO_GET); 
+            printMess(msgFromServer);
+
+            //the choose of the user:
+            getFromUser(chooseInput);
+            cout<<chooseInput<<endl;//00000000000000000000000
+            //not valid choose
+            if(!checkChooseValid(chooseInput)){
+                cout<<"not valid choose"<<endl; //00000000000000000000000
+                printMess(chooseInput);
+                //send to server return to menu
+                string strMenu="retMenu";
+                addZeros(strMenu);
+                clientSock->sendToServer(strMenu);
+                continue; //to the menu.
+            }
+
+            printMess("hello1");
+            cout<<chooseInput<<endl;
+            int choose = stoi("a");
+            cout<<choose<<endl;
+            cout<<"i did stoi"<<endl;
+            //send the choose to server:
+            addZeros(chooseInput);
+            clientSock->sendToServer(chooseInput);
+
+            // //checks that everything is fine:
+            // msgFromServer = clientSock->recFromServer(MAX_TO_GET);
+            // if(msgFromServer!="all is well"){
             //     throw runtime_error("error");
             // }
 
-            // the choose of the user:
-            getline(std::cin, chooseInput); ///////////////changeName
-            if (!checkChooseValid(chooseInput))
-            {
-                cout << "invalid input" << endl; ///////////////changeName
-                // send to server return to menu
-                clientSock->sendToServer() continue; // to the menu.
-            }
-            int choose = stoi(chooseInput);
 
-            // send the choose to server:
-            addZeros(userInput);
-            clientSock->sendToServer(chooseInput);
-            // checks that everything is fine:
-            msgFromServer = clientSock->recFromServer(MAX_TO_GET);
-            if (msgFromServer != "all is well")
-            {
-                throw runtime_error("error");
-            }
-
-            // react by the match function:
-            switch (choose)
-            {
-            case 1:
-                upload();
-                break;
-            case 2:
-                settings();
-                break;
-            case 3:
-                classify();
-                break;
-            case 4:
-                display();
-                break;
-            case 5:
-                download();
-                break;
-            case 8:
-                return;
-                break;
+            //react by the match function:
+            switch (choose) {
+                case 1:
+                    upload();
+                    break;
+                // case 2:
+                //     settings();
+                //     break;
+                // case 3:
+                //     classify();
+                //     break;
+                // case 4:
+                //     display();
+                //     break;
+                // case 5:
+                //     download();
+                //     break;
+                case 8:
+                    return;
+                    break;
             }
         }
     }
 
     catch (const invalid_argument &er)
-    {
+    { 
         // to exit the client
         cout << er.what() << endl;
-        return;
+        return ;
     }
+
+
 }
+
+
+
+
+
+

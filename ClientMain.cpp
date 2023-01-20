@@ -25,17 +25,16 @@ int main(int argc, char **argv)
 
     // check the port.
     int port = -1;
-    string strPort = string(argv[2]);
+    string strPort = string(argv[1]);
     if (ClientSocket::isPort(strPort)){
-        port = stoi(argv[2]);
+        port = stoi(argv[1]);
     }
     if (port == -1){
         cout << "the port is not valid." << endl;
         return 0;
     }
-
     try{
-        ClientSocket* clientS = new ClientSocket(port, argv[1]);
+        ClientSocket* clientS = new ClientSocket(port, argv[2]);
         Client* cli = new Client(clientS);
         cli->start();
         string finish=FINISH_CONNECTION;

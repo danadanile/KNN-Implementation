@@ -21,15 +21,15 @@ void Cli::start() {
     // Print the menu
     std::string menu = "Welcome to the KNN Classifier Server. Please choose an option:\n";
     int size = commands.size();
-
     for (int i = 0; i < size; ++i) {
         menu += commands[i]->getDescription() + "\n";
     }
     menu += "8. exit\n";
+    
 
 
     bool flag = false;
-    while(true) {
+    //while(true) {
         //show the menu
 
         dio->write(menu);
@@ -42,20 +42,20 @@ void Cli::start() {
         } catch (const std::exception& e) {
             dio->write("invalid input\n");
             //flag = true;
-            continue;
+            //continue;
         }
         //flag = false;
         //exit option
         if (index == 8) {
             dio->write("exit\n");
-            break;
+            //break;
         }
 
         //invalid option
         if (index <= 0 || index > size) {
             dio->write("invalid input\n");
             flag = true;
-            continue;
+            //continue;
         }
 
         //run option
@@ -66,7 +66,7 @@ void Cli::start() {
     //     SocketIO* socketIo = (SocketIO*) m_dio;
     //     socketIo->stopRunning();
     // } catch (const std::exception& e) {}
-}
+//}
 
 Cli::~Cli() {
     delete data;

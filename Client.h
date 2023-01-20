@@ -23,11 +23,12 @@ private:
     static string userInput();
     void upload();
     void settings();
-    void classifyTheData();
+    void classify();
     void display();
     void download();
-    string printMes(string s);
+    void printMess(string s);
     string getFromUser(string s);
+    void addZeros(string &input);
     void writeToFile(const string& resultPath, const string& output);
 
     //void general();
