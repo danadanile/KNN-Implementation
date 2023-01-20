@@ -23,7 +23,7 @@ private:
     static string userInput();
     void upload();
     void settings();
-    void classify();
+    void classifyData();
     void display();
     void download();
     void printMess(string s);
