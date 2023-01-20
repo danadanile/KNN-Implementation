@@ -7,7 +7,6 @@
 #include <sstream>
 #include <string>
 #include <stdlib.h> 
-#include "Server.h"
 #include "CheckFuncs.h"
 
 

@@ -9,6 +9,7 @@
 /// @param ip the ip
 ClientSocket::ClientSocket(const int portC, const char *ip)
 {
+
     sock = socket(AF_INET, SOCK_STREAM, 0);
     if (sock < 0)
     {

@@ -55,8 +55,7 @@ bool ServerSocket::IsPort(string &strPort)
             return 1;
         }
     }
-    else
-    {
+    else{
         cout<< "invalid argument"<<endl;
         return 0;
     }
