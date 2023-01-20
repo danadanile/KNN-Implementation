@@ -65,24 +65,31 @@ const string ServerSocket::RecFromClient(int sizeToGet)
 {
     char bufferSize[sizeToGet + 1] = {0}; // for the message
     int read_bytes = recv(client_sock, bufferSize, sizeToGet, 0);
+    cout<<read_bytes<<endl;//00000000000000000000
 
     if (read_bytes == 0)
     {
+        cout<<"here1"<<endl;//00000000000000000000
         throw runtime_error("connection closed");
         // connection is closed
     }
     else if (read_bytes < sizeToGet)
     {
+        cout<<"here2"<<endl;//00000000000000000000
         throw runtime_error("not all data sent");
         // error
     }
     bool flag = false;
+    cout<<"here3"<<endl;//00000000000000000000
     int sizeInput = 0;
     string strSize = string(bufferSize, sizeToGet);
+    cout<<strSize<<endl;//00000000000000000000
+    cout<<"here4"<<endl;//00000000000000000000
 
     if (CheckFuncs::isNumeric(strSize))
     {
         sizeInput = stoi(strSize);
+        cout<<sizeInput<<endl;//00000000000000000000
         if (sizeInput < 0)
         {
             throw invalid_argument("error");

@@ -41,6 +41,7 @@ void UploadCommand::execute()
     if (dio->read() == "invalid input")
     {
         return;
+        cout<<"i dont succed"<<endl;
     }
     stringstream stream=readFileContent(dio);
     buffer.clear();

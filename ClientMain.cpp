@@ -17,13 +17,13 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-
     if (argc != 3){
         cout << "invalid argument" << endl;
         return 0;
     }
 
     // check the port.
+    
     int port = -1;
     string strPort = string(argv[1]);
     if (ClientSocket::isPort(strPort)){

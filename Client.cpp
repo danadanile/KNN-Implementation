@@ -28,9 +28,9 @@ void Client::printMess(string s){
     cout << s << endl;
 }
 
-string Client::getFromUser(string s){
+void Client::getFromUser(string& s){
     getline(cin, s);
-    return s;
+    return;
 }
 
 
@@ -38,24 +38,27 @@ void Client::upload()
 {
     for (int i = 0; i < 2; i++)
     {
-        cout<<"uploadCCCC"<<endl;
         string message, path;
-        // read
-        message = clientSock->recFromServer(SIZE_READ);
-        // client->socketRead(message,client->getSocket());
+
+        // read description task:
+        message = clientSock->recFromServer(MAX_TO_GET);
         printMess(message);
-        cout<<message<<endl;
+
+        //get path from user:
         getFromUser(path);
+        cout<<path<<endl;
         ifstream openFile;
         openFile.open(path);
+        printMess("open");
 
-        if (!openFile.is_open())
-        {
+        if (!openFile.is_open()){
             message = "invalid input";
+            printMess(message);
         }
         else
         {
             message = "Succeed";
+            printMess(message);
         }
         // write
         clientSock->sendToServer(message);
@@ -165,6 +168,7 @@ bool checkChooseValid(string choose)
     if (CheckFuncs::isNumeric(choose))
     {
         int c = stoi(choose);
+        cout << c << endl;
         if (c < 1 || c > 8 || c == 7)
         {
             return false;
@@ -172,9 +176,11 @@ bool checkChooseValid(string choose)
     }
     else
     {
-        return true;
+
+        return false;
     }
-    return false;
+
+    return true;
 }
 
 
@@ -194,11 +200,9 @@ void Client::start(){
 
             //the choose of the user:
             getFromUser(chooseInput);
-            cout<<chooseInput<<endl;//00000000000000000000000
+
             //not valid choose
             if(!checkChooseValid(chooseInput)){
-                cout<<"not valid choose"<<endl; //00000000000000000000000
-                printMess(chooseInput);
                 //send to server return to menu
                 string strMenu="retMenu";
                 addZeros(strMenu);
@@ -206,11 +210,7 @@ void Client::start(){
                 continue; //to the menu.
             }
 
-            printMess("hello1");
-            cout<<chooseInput<<endl;
-            int choose = stoi("a");
-            cout<<choose<<endl;
-            cout<<"i did stoi"<<endl;
+            int choose = stoi(chooseInput);
             //send the choose to server:
             addZeros(chooseInput);
             clientSock->sendToServer(chooseInput);
@@ -227,18 +227,18 @@ void Client::start(){
                 case 1:
                     upload();
                     break;
-                // case 2:
-                //     settings();
-                //     break;
-                // case 3:
-                //     classify();
-                //     break;
-                // case 4:
-                //     display();
-                //     break;
-                // case 5:
-                //     download();
-                //     break;
+                case 2:
+                    settings();
+                    break;
+                case 3:
+                    //classify();
+                    break;
+                case 4:
+                    display();
+                    break;
+                case 5:
+                    download();
+                    break;
                 case 8:
                     return;
                     break;
