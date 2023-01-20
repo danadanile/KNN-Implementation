@@ -19,7 +19,7 @@ Cli::Cli(DefaultIO* dio) : dio(dio) {
 
 void Cli::start() {
     // Print the menu
-    std::string menu = "Welcome to the KNN Classifier Server. Please choose an option:\n";
+    string menu = "Welcome to the KNN Classifier Server. Please choose an option:\n";
     int size = commands.size();
     for (int i = 0; i < size; ++i) {
         menu += commands[i]->getDescription() + "\n";
@@ -29,7 +29,7 @@ void Cli::start() {
 
 
     bool flag = false;
-    //while(true) {
+    while(true) {
         //show the menu
 
         dio->write(menu);
@@ -37,12 +37,17 @@ void Cli::start() {
         int index = -1;
 
         try {
-            index = stoi(dio->read());
+            cout<<"in try"<<endl;
+            string chooseStr=dio->read();
+            cout<<chooseStr<<endl;//00000000000000000000000
+            cout<<chooseStr<<endl;//00000000000000000000000
+            index = stoi(chooseStr);
+            cout<<index<<endl;//00000000000000000000000
             //if a not number input
         } catch (const std::exception& e) {
             dio->write("invalid input\n");
             //flag = true;
-            //continue;
+            continue;
         }
         //flag = false;
         //exit option
@@ -55,10 +60,11 @@ void Cli::start() {
         if (index <= 0 || index > size) {
             dio->write("invalid input\n");
             flag = true;
-            //continue;
+            continue;
         }
 
         //run option
+        cout<<"execute(:"<<endl;
         commands[index - 1]->execute();
     }
 
@@ -66,7 +72,7 @@ void Cli::start() {
     //     SocketIO* socketIo = (SocketIO*) m_dio;
     //     socketIo->stopRunning();
     // } catch (const std::exception& e) {}
-//}
+}
 
 Cli::~Cli() {
     delete data;

@@ -27,7 +27,7 @@ private:
     void display();
     void download();
     void printMess(string s);
-    string getFromUser(string s);
+    void getFromUser(string& s);
     void addZeros(string &input);
     void writeToFile(const string& resultPath, const string& output);
 
