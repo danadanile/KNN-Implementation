@@ -41,7 +41,7 @@ void Client::upload()
         string message, path;
 
         // read description task:
-        message = clientSock->recFromServer(MAX_TO_GET);
+        message = clientSock->recFromServerSize(SIZE_READ);
         printMess(message);
 
         //get path from user:
@@ -61,6 +61,7 @@ void Client::upload()
             printMess(message);
         }
         // write
+        addZeros(message);
         clientSock->sendToServer(message);
         // client->socketWrite(message,client->getSocket());
         if (message == "invalid input")
@@ -74,15 +75,17 @@ void Client::upload()
         {
             buffer.clear();
             getline(openFile, buffer);
+            addZeros(buffer);
             clientSock->sendToServer(buffer);
             // client->socketWrite(buffer,client->getSocket());
         }
         buffer = "end file";
+        addZeros(buffer);
         clientSock->sendToServer(buffer);
         // client->socketWrite(buffer,client->getSocket());
 
         buffer.clear();
-        buffer = clientSock->recFromServer(SIZE_READ);
+        buffer = clientSock->recFromServerSize(SIZE_READ);
 
         printMess(buffer); // print complete or not
 
@@ -96,42 +99,48 @@ void Client::upload()
 
 void Client::settings()
 {
+    //print the current settings:
     string message;
-    message = clientSock->recFromServer(MAX_TO_GET);
+    message = clientSock->recFromServerSize(SIZE_READ);
     printMess(message);
-    // cout << message << endl;
     message.clear();
-    message = clientSock->recFromServer(MAX_TO_GET);
-    // getline(cin,message);
-    if (message.empty())
-    {
+
+    //get the new settings from user:
+    getFromUser(message);
+
+    //Enter-no changes:
+    if (message.empty()){
         message = "continue";
+        addZeros(message);
         clientSock->sendToServer(message);
+        cout<<"ret in client"<<endl;
         return;
     }
-
+    ////K and Distance in message:
+    addZeros(message);
     clientSock->sendToServer(message);
-    
     message.clear();
-    message = clientSock->recFromServer(MAX_TO_GET);
-    // client->socketRead(message,client->getSocket());
-    if (message != "valid")
-    {
+
+    ////Server return Validation:
+    message = clientSock->recFromServerSize(SIZE_READ);
+    if (message != "valid") {
         printMess(message);
-        // printToScreen(message);
     }
+    printMess("i client return from func settings");
+    return;
+
 }
 
 void Client::display() {
     string message;
-    message = clientSock->recFromServer(MAX_TO_GET);
+    message = clientSock->recFromServerSize(SIZE_READ);
     printMess(message);
 //    client->socketRead(msg,client->getSocket());
 //    printToScreen(msg);
 }
 
 void Client::download(){
-    string message = clientSock->recFromServer(MAX_TO_GET);
+    string message = clientSock->recFromServerSize(SIZE_READ);
     string path;
     getline(cin, path); 
     std::thread thread(&Client::writeToFile, this, path, message);
@@ -195,7 +204,7 @@ void Client::start(){
             chooseInput="";
 
             //get the menu from server:
-            msgFromServer = clientSock->recFromServer(MAX_TO_GET); 
+            msgFromServer = clientSock->recFromServerSize(SIZE_READ); 
             printMess(msgFromServer);
 
             //the choose of the user:

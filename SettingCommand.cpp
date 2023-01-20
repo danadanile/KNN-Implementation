@@ -23,8 +23,7 @@ void SettingCommand::getInput(vector<string> &vec, string userInput)
     }
 }
 
-bool SettingCommand::isValidK(string k_input)
-{
+bool SettingCommand::isValidK(string k_input){
 
     if (CheckFuncs::isNumeric(k_input))
     {
@@ -41,59 +40,52 @@ bool SettingCommand::isValidK(string k_input)
     return true;
 }
 
-void SettingCommand::execute()
-{
-
+void SettingCommand::execute(){
+    //Send the current setting:
     string message;
     dio->write(string("The current KNN parameters are:") + string(" K = ") + to_string(data->getK()) + ", distance metric = " + data->getDisName() + "\n");
-
     message.clear();
-    message = dio->read();
-    // string input = dio->read();
 
-    // go next if user press enter
-    if (message == "continue")
-    {
+    //Read the new settings:
+    message = dio->read();
+
+    //Enter clicked:
+    if (message == "continue"){
         return;
     }
 
-
+    //New K and Distance-Enter to vector:
     vector<string> vec;
     getInput(vec, message);
 
-    // If too little arguments were given
-    if (vec.size() != 2)
-    {
+    // If not 2 arg:
+    if (vec.size() != 2){
         dio->write("invalid value for k\ninvalid value for metric\n");
         return;
     }
 
-    // Validating the K value
+    // Validation K:
     bool invalidK = false;
     bool validK = isValidK(vec[0]);
     int k;
-    if (validK)
-    {
-        k = stoi(vec[0]);
+    if (validK){
+        k = stoi(vec[0]);    
     }
-    else
-    {
-        // dio->write("invalid value for K\n");
+    else{
         invalidK = true;
-        // return;
     }
 
+    // Validation Distance:
     string disName = vec[1];
     int disNum = 0;
     if (disName != "AUC" && disName != "MAN" && disName != "CHB" && disName != "CAN" && disName != "MIN")
     {
-        if (invalidK)
-        {
+        //k also unvalid:
+        if (invalidK){
             dio->write("invalid value for k\ninvalid value for metric\n");
             return;
         }
-        else
-        {
+        else{
             dio->write("invalid value for metric\n");
             return;
         }
@@ -105,6 +97,7 @@ void SettingCommand::execute()
         }
     }
 
+    //k and disName valid args:
     enum Choise
     {
         AUC = 1,
@@ -113,6 +106,7 @@ void SettingCommand::execute()
         CAN = 4,
         MIN = 5
     };
+
     // convert enums to number
     static map<string, Choise> const table = {{"AUC", Choise::AUC}, {"MIN", Choise::MIN}, {"MAN", Choise::MAN}, {"CHB", Choise::CHB}, {"CAN", Choise::CAN}};
     auto it = table.find(disName);
@@ -124,4 +118,5 @@ void SettingCommand::execute()
     data->setDisName(disName);
     data->setDisType(disNum);
     data->setK(k);
+    return;
 }

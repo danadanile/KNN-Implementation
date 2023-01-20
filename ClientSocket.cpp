@@ -79,6 +79,69 @@ const string ClientSocket::recFromServer(int sizeToGet)
     return strRet;
 }
 
+/// @brief recive message from server
+/// @param sizeToGet the size of the message to read
+/// @return the message
+const string ClientSocket::recFromServerSize(int sizeToGet)
+{
+    char bufferSize[sizeToGet+1] = {0}; // for the message
+    int expected_data_len = sizeof(bufferSize);
+    int read_bytes = recv(sock, bufferSize, sizeToGet, 0);
+    if (read_bytes == 0)
+    {
+        // connection is closed
+        throw runtime_error("connection is closed");
+    }
+    else if (read_bytes < 0)
+    {
+        throw runtime_error("error");
+        // error
+    }
+
+    bool flag = false;
+    int sizeInput = 0;
+    string strSize = string(bufferSize, sizeToGet);
+
+    if (CheckFuncs::isNumeric(strSize))
+    {
+        sizeInput = stoi(strSize);
+        if (sizeInput < 0)
+        {
+            throw invalid_argument("error");
+        }
+    }
+    else{
+        throw invalid_argument("error");
+    }
+    char buffer[sizeInput + 1] = {0};
+    read_bytes = recv(sock, buffer, sizeInput, 0);
+    if (read_bytes == 0)
+    {
+        // connection is closed
+        throw runtime_error("connection is closed");
+    }
+    else if (read_bytes < 0)
+    {
+        throw runtime_error("error");
+        // error
+    }
+    else if (read_bytes < sizeInput)
+    {
+        throw runtime_error("not all data sent");
+        // error
+    }
+    string strRet(buffer);
+    return strRet;
+
+    
+}
+
+
+
+
+
+
+
 /// @brief send message to server
 /// @param str the message to send
 void ClientSocket::sendToServer(string &str)
