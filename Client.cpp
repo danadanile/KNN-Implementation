@@ -73,14 +73,23 @@ void Client::upload()
         string buffer;
         while (openFile)
         {
+            cout<<"start read"<<endl;
             buffer.clear();
             getline(openFile, buffer);
             addZeros(buffer);
+            cout<<buffer<<endl;
+            if(buffer== "00000000000"){
+                cout<<"end while"<<endl;
+                break;
+            }
             clientSock->sendToServer(buffer);
             // client->socketWrite(buffer,client->getSocket());
         }
-        buffer = "end file";
+        cout<<"end file"<<endl;
+        buffer.clear();
+        buffer = "file end";
         addZeros(buffer);
+        cout<<buffer<<endl;
         clientSock->sendToServer(buffer);
         // client->socketWrite(buffer,client->getSocket());
 
@@ -130,19 +139,24 @@ void Client::settings()
     return;
 
 }
+void Client::classifyData() {
+    string message;
+    cout<<"before recive"<<endl;
+    message = clientSock->recFromServerSize(SIZE_READ);
+    printMess(message);
 
+}
 void Client::display() {
     string message;
     message = clientSock->recFromServerSize(SIZE_READ);
     printMess(message);
-//    client->socketRead(msg,client->getSocket());
-//    printToScreen(msg);
+
 }
 
 void Client::download(){
     string message = clientSock->recFromServerSize(SIZE_READ);
     string path;
-    getline(cin, path); 
+    getline(cin, path);
     std::thread thread(&Client::writeToFile, this, path, message);
     thread.detach();
 }
@@ -204,7 +218,7 @@ void Client::start(){
             chooseInput="";
 
             //get the menu from server:
-            msgFromServer = clientSock->recFromServerSize(SIZE_READ); 
+            msgFromServer = clientSock->recFromServerSize(SIZE_READ);
             printMess(msgFromServer);
 
             //the choose of the user:
@@ -230,6 +244,10 @@ void Client::start(){
             //     throw runtime_error("error");
             // }
 
+            msgFromServer = clientSock->recFromServerSize(SIZE_READ);
+            if(msgFromServer=="invalid input"){
+                continue;
+            }
 
             //react by the match function:
             switch (choose) {
@@ -240,7 +258,7 @@ void Client::start(){
                     settings();
                     break;
                 case 3:
-                    //classify();
+                    classifyData();
                     break;
                 case 4:
                     display();
@@ -256,7 +274,7 @@ void Client::start(){
     }
 
     catch (const invalid_argument &er)
-    { 
+    {
         // to exit the client
         cout << er.what() << endl;
         return ;

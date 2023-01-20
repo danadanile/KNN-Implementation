@@ -13,8 +13,8 @@ Cli::Cli(DefaultIO* dio) : dio(dio) {
     data = new Data();
 
     commands = {new UploadCommand(dio, data), new SettingCommand(dio, data),
-                  new ClassifyCommand(dio, data), new DisplayCommand(dio, data),
-                  new DownloadCommand(dio, data), new UploadCommand(dio, data)};
+                new ClassifyCommand(dio, data), new DisplayCommand(dio, data),
+                new DownloadCommand(dio, data), new UploadCommand(dio, data)};
 }
 
 void Cli::start() {
@@ -25,7 +25,7 @@ void Cli::start() {
         menu += commands[i]->getDescription() + "\n";
     }
     menu += "8. exit\n";
-    
+
 
 
     bool flag = false;
@@ -35,34 +35,33 @@ void Cli::start() {
         dio->write(menu);
         // Execute the chosen command
         int index = -1;
+        string chooseStr = dio->read();
+
+        if(chooseStr=="retMenu"){
+            cout<<"end"<<endl;
+            continue;
+        }
 
         try {
-            cout<<"in try"<<endl;
-            string chooseStr=dio->read();
-            cout<<chooseStr<<endl;//00000000000000000000000
-            cout<<chooseStr<<endl;//00000000000000000000000
             index = stoi(chooseStr);
-            cout<<index<<endl;//00000000000000000000000
             //if a not number input
         } catch (const std::exception& e) {
             dio->write("invalid input\n");
-            //flag = true;
             continue;
         }
         //flag = false;
         //exit option
         if (index == 8) {
-            dio->write("exit\n");
+            dio->write("invalid input\n");
             //break;
         }
 
         //invalid option
         if (index <= 0 || index > size) {
             dio->write("invalid input\n");
-            flag = true;
             continue;
         }
-
+        dio->write("valid\n");
         //run option
         cout<<"execute(:"<<endl;
         commands[index - 1]->execute();
@@ -77,7 +76,6 @@ void Cli::start() {
 Cli::~Cli() {
     delete data;
     delete dio;
-
     for (int i = 0; i < commands.size(); ++i) {
         delete commands[i];
     }
