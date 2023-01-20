@@ -30,8 +30,8 @@ void Cli::start() {
 
     bool flag = false;
     while(true) {
-        //show the menu
-
+        cout<<"start menu"<<endl;
+        //SHOW THE MENU:
         dio->write(menu);
         // Execute the chosen command
         int index = -1;

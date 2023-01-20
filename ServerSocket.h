@@ -17,6 +17,7 @@ public:
     static bool IsPort(string &strPort);
     void enterClient();
     const string RecFromClient(int sizeToGet);
+    void sendToClientSize(const string &str);
     void sendToClient(const string &str);
     void closeClient();
     void closeServer();
