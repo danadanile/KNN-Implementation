@@ -48,10 +48,10 @@ void Cli::start() {
             dio->write("invalid input\n");
             continue;
         }
-        //flag = false;
-        //exit option
+
         if (index == 8) {
-            dio->write("invalid input\n");
+            //dio->write("invalid input\n");
+            return;
             //break;
         }
 

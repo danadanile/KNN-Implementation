@@ -9,9 +9,6 @@
 using namespace std;
 
 
-// Client::Client(ClientSocket *clientS){
-//     // clientSock = new ClientSocket();
-// }
 
 Client::Client(ClientSocket* clientS) : clientSock(clientS){
 }
@@ -238,6 +235,7 @@ void Client::start(){
             }
 
             int choose = stoi(chooseInput);
+            
             //send the choose to server:
             addZeros(chooseInput);
             clientSock->sendToServer(chooseInput);

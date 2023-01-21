@@ -33,18 +33,20 @@ int main(int argc, char **argv)
         cout << "the port is not valid." << endl;
         return 0;
     }
-    try{
+
         ClientSocket* clientS = new ClientSocket(port, argv[2]);
         Client* cli = new Client(clientS);
+    try{
         cli->start();
-        string finish=FINISH_CONNECTION;
-        clientS->sendToServer(finish);
+        //string finish=FINISH_CONNECTION;
+        //clientS->sendToServer(finish);
         clientS->closeClient();
         return 0;
     }
     catch (const runtime_error &er)
     { // to exit the client
         cout << er.what() << endl;
+        clientS->closeClient();
         return 0;
     }
 }
