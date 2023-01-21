@@ -3,5 +3,6 @@ project(testEx4)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(testEx4 main.cpp VectorUnclassified.cpp VectorMap.cpp DistanceType.cpp CheckFuncs.cpp
-        StandartIO.cpp DefaultIO.h Cli.cpp Data.cpp UploadCommand.cpp Command.cpp SettingCommand.cpp ClassifyCommand.cpp)
+add_executable(testEx4 ServerMain.cpp CheckFuncs.cpp DistanceType.cpp VectorMap.cpp Command.cpp Cli.cpp Data.cpp DefaultIO.h StandartIO.cpp UploadCommand.cpp VectorUnclassified.cpp SettingCommand.cpp DisplayCommand.cpp DownloadCommand.cpp ServerSocket.cpp SocketIO.cpp ClassifyCommand.cpp)
+
+#add_executable(testEx4 ClientMain.cpp CheckFuncs.cpp DistanceType.cpp VectorMap.cpp Command.cpp Cli.cpp Data.cpp DefaultIO.h StandartIO.cpp UploadCommand.cpp VectorUnclassified.cpp SettingCommand.cpp DisplayCommand.cpp DownloadCommand.cpp ServerSocket.cpp SocketIO.cpp ClassifyCommand.cpp ClientSocket.cpp Client.cpp)

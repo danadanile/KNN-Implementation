@@ -14,7 +14,7 @@ Cli::Cli(DefaultIO* dio) : dio(dio) {
 
     commands = {new UploadCommand(dio, data), new SettingCommand(dio, data),
                 new ClassifyCommand(dio, data), new DisplayCommand(dio, data),
-                new DownloadCommand(dio, data), new UploadCommand(dio, data)};
+                new DownloadCommand(dio, data)};
 }
 
 void Cli::start() {

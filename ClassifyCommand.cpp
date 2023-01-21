@@ -7,14 +7,16 @@ ClassifyCommand::ClassifyCommand(DefaultIO *dio, Data *data) : Command(dio, data
 void ClassifyCommand::execute() {
     cout<<"start 3"<<endl;
     if (!data->getTrainIsInit() || !data->getTestIsInit()) {
-        cout<<"uploade data"<<endl;
         dio->write("Please upload data\n");
         return;
     }
     //clasify data:
-    cout<<"before class"<<endl;
+    int sizeMap=data->getTrain()->getSizeMap();
+    if(data->getK()>sizeMap){
+        dio->write("Please make sure k is higher than number vectors in train");
+        return;
+    }
     data->classifyData();
-    cout<<"after class"<<endl;
     data->SetIsClassified(true);
     // Inform the user the classification is done
     dio->write("Classifying data complete.\n");
