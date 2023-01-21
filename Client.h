@@ -26,7 +26,7 @@ private:
     void classifyData();
     void display();
     void download();
-    void printMess(string s);
+    void printMsg(string s);
     void getFromUser(string& s);
     void addZeros(string &input);
     void writeToFile(const string& resultPath, const string& output);

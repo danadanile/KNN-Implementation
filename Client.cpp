@@ -1,15 +1,7 @@
 #include "Client.h"
 #include "ClientSocket.h"
 #include <iostream>
-#include <sys/socket.h>
-#include <stdio.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <unistd.h>
-#include <string.h>
-#include <vector>
 #include <sstream>
-#include "DistanceType.h"
 #include "CheckFuncs.h"
 #include <thread>
 #define MAX_TO_GET 4096
@@ -24,7 +16,7 @@ using namespace std;
 Client::Client(ClientSocket* clientS) : clientSock(clientS){
 }
 
-void Client::printMess(string s){
+void Client::printMsg(string s){
     cout << s << endl;
 }
 
@@ -42,23 +34,23 @@ void Client::upload()
 
         // read description task:
         message = clientSock->recFromServerSize(SIZE_READ);
-        printMess(message);
+        printMsg(message);
 
         //get path from user:
         getFromUser(path);
         cout<<path<<endl;
         ifstream openFile;
         openFile.open(path);
-        printMess("open");
+        printMsg("open");
 
         if (!openFile.is_open()){
             message = "invalid input";
-            printMess(message);
+            printMsg(message);
         }
         else
         {
             message = "Succeed";
-            printMess(message);
+            printMsg(message);
         }
         // write
         addZeros(message);
@@ -67,7 +59,7 @@ void Client::upload()
         if (message == "invalid input")
         {
             // cout << message << endl;
-            printMess(message);
+            printMsg(message);
             // return false;
         }
         string buffer;
@@ -96,7 +88,7 @@ void Client::upload()
         buffer.clear();
         buffer = clientSock->recFromServerSize(SIZE_READ);
 
-        printMess(buffer); // print complete or not
+        printMsg(buffer); // print complete or not
 
         if (buffer == "invalid input")
         {
@@ -111,7 +103,7 @@ void Client::settings()
     //print the current settings:
     string message;
     message = clientSock->recFromServerSize(SIZE_READ);
-    printMess(message);
+    printMsg(message);
     message.clear();
 
     //get the new settings from user:
@@ -133,9 +125,9 @@ void Client::settings()
     ////Server return Validation:
     message = clientSock->recFromServerSize(SIZE_READ);
     if (message != "valid") {
-        printMess(message);
+        printMsg(message);
     }
-    printMess("i client return from func settings");
+    printMsg("i client return from func settings");
     return;
 
 }
@@ -143,30 +135,38 @@ void Client::classifyData() {
     string message;
     cout<<"before recive"<<endl;
     message = clientSock->recFromServerSize(SIZE_READ);
-    printMess(message);
-
+    printMsg(message);
 }
 void Client::display() {
     string message;
     message = clientSock->recFromServerSize(SIZE_READ);
-    printMess(message);
-
+    printMsg(message);
 }
 
 void Client::download(){
+    cout<<"before"<<endl;
     string message = clientSock->recFromServerSize(SIZE_READ);
-    string path;
-    getline(cin, path);
-    std::thread thread(&Client::writeToFile, this, path, message);
-    thread.detach();
+    cout<<"after"<<endl;
+    cout<<message<<endl;
+    if(message=="please upload data\n" || message=="please classify the data\n") {
+        printMsg(message);
+        return;
+    }
+    else {
+        cout<<"get path"<<endl;
+        string path;
+        getline(cin, path);
+        std::thread thread(&Client::writeToFile, this, path, message);
+        thread.detach();
+    }
 }
 
 
-void Client::writeToFile(const string& path, const string& output) {
+void Client::writeToFile(const string& path, const string& result) {
     std::ofstream oFile;
     oFile.open(path);
     if (oFile.is_open()) {
-        oFile << output;
+        oFile << result;
         oFile.close();
     } else {
         //  printToScreen("invalid input");
@@ -219,7 +219,7 @@ void Client::start(){
 
             //get the menu from server:
             msgFromServer = clientSock->recFromServerSize(SIZE_READ);
-            printMess(msgFromServer);
+            printMsg(msgFromServer);
 
             //the choose of the user:
             getFromUser(chooseInput);
@@ -237,12 +237,6 @@ void Client::start(){
             //send the choose to server:
             addZeros(chooseInput);
             clientSock->sendToServer(chooseInput);
-
-            // //checks that everything is fine:
-            // msgFromServer = clientSock->recFromServer(MAX_TO_GET);
-            // if(msgFromServer!="all is well"){
-            //     throw runtime_error("error");
-            // }
 
             msgFromServer = clientSock->recFromServerSize(SIZE_READ);
             if(msgFromServer=="invalid input"){
@@ -279,12 +273,4 @@ void Client::start(){
         cout << er.what() << endl;
         return ;
     }
-
-
 }
-
-
-
-
-
-
