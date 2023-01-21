@@ -19,9 +19,13 @@ void handleClient(int clientSock)
     cout << "in thread handleClient " << clientSock << endl;
     SessionSocket sesS(clientSock);
     SocketIO* sockIO = new SocketIO(sesS);
-    
+    try{
     Cli* cli = new Cli(sockIO);
     cli->start();
+    }
+    catch(const runtime_error &er){
+    }
+
     sesS.closeClient();
 }
 
