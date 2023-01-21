@@ -3,18 +3,18 @@
 
 #include <cstring>
 #include <iostream>
-#include "ServerSocket.h"
+#include "SessionSocket.h"
 #include "DefaultIO.h"
 using namespace std;
 
 class SocketIO : public DefaultIO {
 private:
-    ServerSocket& socket;
+    SessionSocket& socket;
 
 public:
     /// @brief constructor
     /// @param socket  the server socket
-    SocketIO(ServerSocket& socket);
+    SocketIO(SessionSocket& socket);
 
     /// @brief read user input and return strung
     /// @return string input
