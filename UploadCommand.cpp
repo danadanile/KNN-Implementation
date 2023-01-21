@@ -7,31 +7,6 @@ UploadCommand::UploadCommand(DefaultIO *my_dio, Data *my_data) : Command(my_dio,
     this->description = "1. upload an unclassified csv data file";
 }
 stringstream readFileContent(DefaultIO *dio)
-
-//    string buffer;
-//    stringstream ss;
-//    buffer.clear();
-//    buffer = _defaultIO->read();
-//    if (buffer == "file end") {
-//        return ss;
-//    }
-//    buffer.erase(buffer.find_last_not_of('\r') + 1);
-//    ss << buffer;
-//    while (true) {
-//        cout<<"enter while"<<endl;
-//        buffer.clear();
-//        buffer = _defaultIO->read();
-//        cout<<buffer<<endl;
-//        if (buffer == "file end") {
-//            break;
-//        }
-//        buffer.erase(buffer.find_last_not_of('\r') + 1);
-//        ss << '\n'
-//           << buffer;
-//    }
-//    cout<<"func end"<<endl;
-//    return ss;
-
 {
     string buffer;
     stringstream stream;
@@ -60,33 +35,54 @@ stringstream readFileContent(DefaultIO *dio)
 
 void UploadCommand::execute()
 {
+    //SENT-PLEASE UPLOAD..
     string buffer;
     dio->write("Please upload your local train CSV file.\n");
-    // string fname = dio->read();
-    if (dio->read() == "invalid input")
-    {
+
+    //GET-"READ DONE" IN CLIENT: ELSE:
+    if (dio->read() == "invalid input.\n"){
+
+        //DELETE EXITS FILES:
+        if (data->getTrainIsInit()){
+            delete data->getTrain();
+            data->setTrainIsInit(false);
+        }      
+        if (data->getTestIsInit()){
+            delete data->getTest();
+            data->setTestIsInit(false);
+        }
         cout<<"fail"<<endl;
         return;
-        cout<<"i dont succed"<<endl;
     }
+
+    //GET-READ DONE IN CLIENT-READ ALL HERE:
     stringstream stream = readFileContent(dio);
-    cout<<"read done"<<endl;
+    cout<<"here1"<<endl;
     buffer.clear();
     data->SetIsClassified(false);
-
+    cout<<"here2"<<endl;
     try
     {
-        if (data->getTrainIsInit())
-        {
+        //IF ALLRDY EXIST-DELETE:
+        if (data->getTrainIsInit()){
             delete data->getTrain();
         }
+    cout<<"here3"<<endl;
+        //ENTER TO VECTOR MAP:
         data->setTrain(stream);
+    cout<<"here4"<<endl;
+        //CHECK K:
+        if(data->getTrain()->getSizeMap()<data->getK()){
+            cout<<"k prob"<<endl;
+            throw invalid_argument("invalid input.\n");
+            
+        }
         dio->write("Upload complete.\n");
     }
     catch (const invalid_argument &er)
-    {
-        if (data->getTestIsInit())
-        {
+    { 
+        //SOMTHING GOT WRONG..Init TestMap:
+        if (data->getTestIsInit()){
             delete data->getTest();
             data->setTestIsInit(false);
         }
@@ -95,20 +91,52 @@ void UploadCommand::execute()
         return;
     }
 
+
+
+    //ROUND 2:
+
+    //SENT-PLEASE UPLOAD..
     dio->write("Please upload your local test CSV file.\n");
-    if (dio->read() == "invalid input")
-    {
+
+    //GET-"READ DONE" IN CLIENT: ELSE:
+    if (dio->read() == "invalid input.\n"){
+
+        //DELETE EXITS FILES:
+        if (data->getTrainIsInit()){
+            delete data->getTrain();
+            data->setTrainIsInit(false);
+        }      
+        if (data->getTestIsInit()){
+            delete data->getTest();
+            data->setTestIsInit(false);
+        }
         return;
     }
+
+    //GET-READ DONE IN CLIENT-READ ALL HERE:
     stringstream streamTest=readFileContent(dio);
 
     try
     {
-        if (data->getTestIsInit())
-        {
+        //IF ALLRDY EXIST-DELETE:
+        if (data->getTestIsInit()) {
             delete data->getTest();
         }
+
+        //ENTER TO VECTOR MAP:
         data->setTest(streamTest);
+
+        //CHECK K:
+        if(data->getTest()->getSizeMap()<data->getK()){
+            throw invalid_argument("invalid input.\n");
+            cout<<"k prob"<<endl;
+        }
+
+        //CHECK SIZE TWO VECTOR MAPS:
+        if(data->getTest()->GetVectorLength()!=data->getTrain()->GetVectorLength()){
+            throw invalid_argument("invalid input.\n");
+            cout<<"size prob"<<endl;
+        }
     }
     catch (const invalid_argument &er)
     {
@@ -124,8 +152,4 @@ void UploadCommand::execute()
     dio->write("Upload complete.\n");
 }
 
-/// /home/danadanilenko/CLionProjects/testEx4/iris_Unclassified.csv
-/// /home/danadanilenko/CLionProjects/testEx4/iris_classified.csv
-// string getDescription(){
-//     return "1. upload an unclassified csv data file";
-// }
+

@@ -3,17 +3,27 @@
 #include "VectorMap.h"
 #include "CheckFuncs.h"
 #include "ServerSocket.h"
-#include "ServerSocket.h"
+#include "SessionSocket.h"
 #include "SocketIO.h"
 #include "DefaultIO.h"
 #include "Cli.h"
 #include <cstdlib>
+#include <thread>
 #define P 2
 #define CHAR_SUM_INT 10
 
 using namespace std;
 
-
+void handleClient(int clientSock)
+{
+    cout << "in thread handleClient " << clientSock << endl;
+    SessionSocket sesS(clientSock);
+    SocketIO* sockIO = new SocketIO(sesS);
+    
+    Cli* cli = new Cli(sockIO);
+    cli->start();
+    sesS.closeClient();
+}
 
 int main(int argc, char **argv)
 {
@@ -42,10 +52,13 @@ int main(int argc, char **argv)
 
     // create server .
     ServerSocket serS(port);
-    SocketIO* sockIO = new SocketIO(serS);
-    serS.enterClient();
-    Cli* cli = new Cli(sockIO);
-    cli->start();
+    while (true)
+    {
+        int clientSock = serS.enterClient();
+
+        thread clientThread(&handleClient, clientSock);
+        clientThread.detach();
+    }
 
     // close
     serS.closeServer();

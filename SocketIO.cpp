@@ -1,7 +1,7 @@
 #include "SocketIO.h"
 #define SIZE_READ 10
 
-SocketIO::SocketIO(ServerSocket& socket) : socket(socket) {}
+SocketIO::SocketIO(SessionSocket& socket) : socket(socket) {}
 
 std::string SocketIO::read() {
     cout<<"read now"<<endl;//000000000000000000000000

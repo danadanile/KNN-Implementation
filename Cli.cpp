@@ -18,7 +18,8 @@ Cli::Cli(DefaultIO* dio) : dio(dio) {
 }
 
 void Cli::start() {
-    // Print the menu
+
+    //CREATE THE MENU:
     string menu = "Welcome to the KNN Classifier Server. Please choose an option:\n";
     int size = commands.size();
     for (int i = 0; i < size; ++i) {
@@ -26,12 +27,10 @@ void Cli::start() {
     }
     menu += "8. exit\n";
 
-
-
     bool flag = false;
     while(true) {
         cout<<"start menu"<<endl;
-        //SHOW THE MENU:
+        //SENT THE MENU:
         dio->write(menu);
         // Execute the chosen command
         int index = -1;

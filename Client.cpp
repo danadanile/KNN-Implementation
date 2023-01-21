@@ -30,21 +30,23 @@ void Client::upload()
 {
     for (int i = 0; i < 2; i++)
     {
+        cout << "i" << i << endl;
         string message, path;
 
-        // read description task:
+        //READ DESCRIPTION TASK:
         message = clientSock->recFromServerSize(SIZE_READ);
         printMsg(message);
 
-        //get path from user:
+        //GET PATH FROM USER:
         getFromUser(path);
         cout<<path<<endl;
+
+        //TRY OPEN THE FILE:
         ifstream openFile;
         openFile.open(path);
         printMsg("open");
-
         if (!openFile.is_open()){
-            message = "invalid input";
+            message = "invalid input.\n";
             printMsg(message);
         }
         else
@@ -52,16 +54,18 @@ void Client::upload()
             message = "Succeed";
             printMsg(message);
         }
-        // write
+        string mess=message;
+
+        //SEND-IF SUCCEED:
         addZeros(message);
         clientSock->sendToServer(message);
-        // client->socketWrite(message,client->getSocket());
-        if (message == "invalid input")
-        {
-            // cout << message << endl;
-            printMsg(message);
-            // return false;
+
+        //IF NOT SUCCEED-TREAT:
+        if (mess == "invalid input.\n"){
+            return;
         }
+
+        //SEND THE FILE BY ROWS:
         string buffer;
         while (openFile)
         {
@@ -75,27 +79,25 @@ void Client::upload()
                 break;
             }
             clientSock->sendToServer(buffer);
-            // client->socketWrite(buffer,client->getSocket());
         }
-        cout<<"end file"<<endl;
+
+        //SEND FINISH OPEN THE FILE:
         buffer.clear();
         buffer = "file end";
         addZeros(buffer);
-        cout<<buffer<<endl;
         clientSock->sendToServer(buffer);
-        // client->socketWrite(buffer,client->getSocket());
 
+        //GET THAT ALL UPLOAD IN SRVER:
         buffer.clear();
         buffer = clientSock->recFromServerSize(SIZE_READ);
 
         printMsg(buffer); // print complete or not
-
-        if (buffer == "invalid input")
-        {
+        cout << "here8" << endl;
+        if (buffer == "invalid input.\n"){
             return;
         }
-        continue;
     }
+    cout << "here9" << endl;
 }
 
 void Client::settings()
@@ -156,7 +158,7 @@ void Client::download(){
         cout<<"get path"<<endl;
         string path;
         getline(cin, path);
-        std::thread thread(&Client::writeToFile, this, path, message);
+        thread thread(&Client::writeToFile, this, path, message);
         thread.detach();
     }
 }
@@ -217,6 +219,8 @@ void Client::start(){
             msgFromServer="";
             chooseInput="";
 
+            cout << "before getting menu from server" << endl;
+
             //get the menu from server:
             msgFromServer = clientSock->recFromServerSize(SIZE_READ);
             printMsg(msgFromServer);
@@ -245,7 +249,7 @@ void Client::start(){
 
             //react by the match function:
             switch (choose) {
-                case 1:
+                case 1:                      
                     upload();
                     break;
                 case 2:
