@@ -1,8 +1,5 @@
-#include <iostream>  
-#include <cstring>  
-#include <vector>  
+#include <vector>
 #include <cmath>
-#include <sstream>
 #include "DistanceType.h"
 #include "CheckFuncs.h"
 #define P 2

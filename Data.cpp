@@ -8,12 +8,10 @@
 #include "DistanceType.h"
 using namespace std; 
 
-/// @brief Class which calculates the distance by her type.
-/// @param disType by int (which simbolaized distance name by enum).
+
 Data::Data():disName("AUC"),disType(1),k(5), train(new VectorMap()),
 test(new VectorUnclassified()), isClassified(false), testIsInit(false), trainIsInit(false){ 
 }
-
 
 
 string Data::getDisName() {

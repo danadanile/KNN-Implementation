@@ -10,14 +10,29 @@
 using namespace std;
 
 class VectorUnclassified {
-    /// @brief map of the file cataloged by vector and string name.
+   
     multimap<vector<double>, string> vecUnclassified;
 public:
-    VectorUnclassified(stringstream &fname);
+    /// @brief constructor.
     VectorUnclassified();
-    int GetVectorLength();
+
+    /// @brief The class create map by file name. the first column in the map
+    /// is the vector, the second is the name "".
+    /// @param fname as a file name.
+    VectorUnclassified(stringstream &fname);
+
+    /// @brief get the number of rows in the map.
+    /// @return the size map.
     int getSizeMap();
+
+    /// @brief return the length of the vector in the map
+    /// @return the first vector length, which symbolized the rest of vectors.
+    int GetVectorLength();
+
+
     void classify(VectorMap* train, int k, int disType);
+
+
     multimap<vector<double>, string> getVecUnclassified();
 
     };

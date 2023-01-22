@@ -1,9 +1,7 @@
-#include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
 #include <sstream>
-#include <math.h>
 #include <map>
 #include <stdexcept>
 #include "DistanceType.h"
@@ -16,9 +14,7 @@ VectorMap::VectorMap()
 {
 }
 
-/// @brief The class create map by file name. the first column in the map
-/// is the vector, the second is the name.
-/// @param fname as a file name.
+
 VectorMap::VectorMap(stringstream &stream)
 {
 
@@ -34,16 +30,15 @@ VectorMap::VectorMap(stringstream &stream)
       row.clear();
       stringstream str(line);
 
-      while (getline(str, word, ','))
+      while (getline(str, word, ',')){
+         if(word==""){
+            throw invalid_argument("invalid input");
+         }
          row.push_back(word);
+      }
       content.push_back(row);
    }
 
-   // else
-   // {
-   //    // cout<< "invalid input: could not open file" << endl;
-   //    throw invalid_argument("could not open file.");
-   // }
 
    vector<double> vec;
    vector<double> vecPrev = {};
@@ -74,15 +69,13 @@ VectorMap::VectorMap(stringstream &stream)
    }
 }
 
-/// @brief get the number of rows in the map.
-/// @return the size map.
+
 int VectorMap::getSizeMap()
 {
    return mapi.size();
 }
 
-/// @brief return the length of the vector in the map
-/// @return the first vector length, which symbolized the rest of vectors.
+
 int VectorMap::GetVectorLength()
 {
    multimap<vector<double>, string>::iterator itr;
@@ -91,11 +84,7 @@ int VectorMap::GetVectorLength()
    return itr->first.size();
 }
 
-/// @brief calculates the K-nearest-neighbors by vector.
-/// @param vecGet the vector.
-/// @param disNum distance type.
-/// @param k nearest-neighbors.
-/// @return the name of the nearest-neighbors.
+
 string VectorMap::knnFunc(vector<double> vecGet, int disNum, int k)
 {
 

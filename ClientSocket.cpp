@@ -4,9 +4,7 @@
 #include "ClientSocket.h"
 #include "CheckFuncs.h"
 
-/// @brief constructor
-/// @param portC the port
-/// @param ip the ip
+
 ClientSocket::ClientSocket(const int portC, const char *ip)
 {
 
@@ -26,9 +24,7 @@ ClientSocket::ClientSocket(const int portC, const char *ip)
     }
 }
 
-/// @brief checks if port is valid
-/// @param strPort 
-/// @return true if valid
+
 bool ClientSocket::isPort(string &strPort)
 {
     int port = 0;
@@ -52,9 +48,7 @@ bool ClientSocket::isPort(string &strPort)
     }
 }
 
-/// @brief recive message from server
-/// @param sizeToGet the size of the message to read
-/// @return the message
+
 const string ClientSocket::recFromServer(int sizeToGet)
 {
     string strRet = "";
@@ -79,9 +73,7 @@ const string ClientSocket::recFromServer(int sizeToGet)
     return strRet;
 }
 
-/// @brief recive message from server
-/// @param sizeToGet the size of the message to read
-/// @return the message
+
 const string ClientSocket::recFromServerSize(int sizeToGet)
 {
     char bufferSize[sizeToGet+1] = {0}; // for the message
@@ -132,18 +124,8 @@ const string ClientSocket::recFromServerSize(int sizeToGet)
     }
     string strRet(buffer);
     return strRet;
-
-    
 }
 
-
-
-
-
-
-
-/// @brief send message to server
-/// @param str the message to send
 void ClientSocket::sendToServer(string &str)
 {
     int data_len = str.length();
@@ -156,7 +138,6 @@ void ClientSocket::sendToServer(string &str)
     }
 }
 
-/// @brief close client conection 
 void ClientSocket::closeClient()
 {
     close(sock);

@@ -4,11 +4,7 @@
 #include <vector>
 #include <sstream>
 #include <map>
-#include <stdexcept>
-#include <iostream>
-#include <string>
 #include "DownloadCommand.h"
-#include "VectorUnclassified.h"
 
 using namespace std;
 

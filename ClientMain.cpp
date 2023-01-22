@@ -1,12 +1,4 @@
 #include <iostream>
-#include <sys/socket.h>
-#include <stdio.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <unistd.h>
-#include <string.h>
-#include <sstream>
-#include "CheckFuncs.h"
 #include "ClientSocket.h"
 #include "Client.h"
 #define MAX_TO_GET 4096

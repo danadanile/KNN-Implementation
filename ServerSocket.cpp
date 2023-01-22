@@ -4,7 +4,6 @@
 #include "CheckFuncs.h"
 using namespace std;
 
-
 ServerSocket::ServerSocket(int port) : sock(socket(AF_INET, SOCK_STREAM, 0))
 {
     server_port = port;
@@ -48,8 +47,8 @@ bool ServerSocket::IsPort(string &strPort)
     {
         port = stoi(strPort);
         if (port < 1024 || port > 65535)
-        { 
-            cout<< "invalid argument"<<endl;
+        {
+            cout << "invalid argument" << endl;
             return 0;
         }
         else
@@ -57,8 +56,9 @@ bool ServerSocket::IsPort(string &strPort)
             return 1;
         }
     }
-    else{
-        cout<< "invalid argument"<<endl;
+    else
+    {
+        cout << "invalid argument" << endl;
         return 0;
     }
 }
