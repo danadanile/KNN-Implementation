@@ -3,10 +3,7 @@
 
 using namespace std;
 
-StandartIO::StandartIO() {
-        // code to initialize the standard input/output
-
-}
+StandartIO::StandartIO() {}
 
 string StandartIO::read() {
     std::string res;

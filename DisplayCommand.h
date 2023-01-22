@@ -4,7 +4,7 @@
 #include "Command.h"
 using namespace std;
 
-/// @brief display command show train file by classified.
+/// @brief display command show the classified result.
 
 class DisplayCommand : public Command
 {

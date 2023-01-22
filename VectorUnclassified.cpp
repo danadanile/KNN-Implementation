@@ -1,15 +1,11 @@
-#include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
 #include <sstream>
-#include <math.h>
 #include <map>
 #include <stdexcept>
-// #include "DistanceType.h"
 #include "CheckFuncs.h"
 #include "VectorUnclassified.h"
-// #include "VectorMap.h"
 
 using namespace std;
 
@@ -17,9 +13,7 @@ VectorUnclassified::VectorUnclassified()
 {
 }
 
-/// @brief The class create map by file name. the first column in the map
-/// is the vector, the second is the name "".
-/// @param fname as a file name.
+
 VectorUnclassified::VectorUnclassified(stringstream &fname)
 {
 
@@ -64,29 +58,16 @@ VectorUnclassified::VectorUnclassified(stringstream &fname)
       // set value to default
       vec = {};
       nameType = "";
-
-      // for (auto it = vecUnclassified.begin(); it != vecUnclassified.end(); ++it)
-      // {
-      //    cout << "\nVector: ";
-      //    for (const auto &i : it->first)
-      //    {
-      //       cout << i << " ";
-      //    }
-      //    cout << it->second;
-      // }
-      // cout << "\n";
    }
 }
 
-/// @brief get the number of rows in the map.
-/// @return the size map.
+
 int VectorUnclassified::getSizeMap()
 {
    return vecUnclassified.size();
 }
 
-/// @brief return the length of the vector in the map
-/// @return the first vector length, which symbolized the rest of vectors.
+
 int VectorUnclassified::GetVectorLength()
 {
    multimap<vector<double>, string>::iterator itr;

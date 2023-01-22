@@ -8,8 +8,9 @@ UploadCommand::UploadCommand(DefaultIO *my_dio, Data *my_data) : Command(my_dio,
 }
 stringstream readFileContent(DefaultIO *dio)
 {
-    string buffer;
+   
     stringstream stream;
+    string buffer;
     buffer.clear();
     buffer = dio->read();
     if (buffer != "file end")

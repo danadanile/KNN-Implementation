@@ -1,18 +1,10 @@
-// @brief functions for different checks in the project
 #include <iostream>
-#include <stdio.h>
-#include <string.h>
-#include <cstring>
 #include <vector>
 #include <sstream>
 #include <string>
-#include <stdlib.h> 
 #include "CheckFuncs.h"
 
 
-/// @brief count number digits in int
-/// @param number 
-/// @return num digits
 int CheckFuncs::count_digit(int number) {
     int count = 0;
     while(number != 0) {
@@ -23,8 +15,7 @@ int CheckFuncs::count_digit(int number) {
 }
 
 
-/// @param str string 
-/// @return true if numeric false otherwise
+
 bool CheckFuncs::isNumeric(string const &str){
     auto it = str.begin();
     while(it !=str.end() && isdigit(*it)) {
@@ -47,9 +38,7 @@ bool CheckFuncs::checkKValid(string k_input){
     return true;
 }
 
-/// @brief- Function is number checks if the string is a number.
-/// @param s string from user. 
-/// @return true if the string is a number, false otherwise.
+
 bool CheckFuncs::isNumber(string &s){
     double ld;
     if (s == "")
@@ -62,10 +51,7 @@ bool CheckFuncs::isNumber(string &s){
     return ((istringstream(s) >> ld >> std::ws).eof());
 }
 
-/// @brief check same lenght of vector and classifiend vector
-/// @param p vec1
-/// @param q vec2
-/// @return 1 if same lenght, 0 otherwise
+
 int CheckFuncs::checkSameLenght(vector<double> p, vector<double> q){
     if(p.size() == q.size()){
         return 1;

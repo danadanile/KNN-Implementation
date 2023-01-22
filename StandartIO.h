@@ -6,7 +6,6 @@
 using namespace std;
 
 
-
  /// @brief class responsible to communicate with standard io.
 
 class StandartIO : public DefaultIO {

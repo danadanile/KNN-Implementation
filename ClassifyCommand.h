@@ -5,8 +5,6 @@
 
 /// @brief class classify files with knn
 class ClassifyCommand : public Command {
-private:
-  
 
 public:
 
