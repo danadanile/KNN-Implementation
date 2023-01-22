@@ -48,11 +48,13 @@ We have Command abstract class and five diferent commands that inherits this cla
 Each command can be run by the server with execute() function that cn be run by server.
 ![image](https://user-images.githubusercontent.com/117977429/213930358-6a94df78-e4f0-4006-8185-8922dd63e603.png).
 
-We have Cli class. It responsibble of running the different commands. We create vector with all the commands and run each command by execute().
+We have Cli class that responsible of running the different commands. We create vector with all the commands and run each command by execute().
 Cli use DefultIo class member that responsible for I/O.
 
 
 ![image](https://user-images.githubusercontent.com/117977429/213931338-ec63d6c6-9c9e-4d3d-ac57-377bd40ced47.png).
+
+The server opens socket and waits for connection of clients. Each client runs on a different thread. In each thread, the server creates instance of 
 
 
 
