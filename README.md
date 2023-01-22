@@ -44,9 +44,7 @@ Now, client can use program.
 
 ### Server Side:
 We use a [command design pattern](https://en.wikipedia.org/wiki/Command_pattern). 
-![image](https://user-images.githubusercontent.com/117977429/213930090-2cbde627-36b0-4ce8-9a51-29d4be42185e.png)
-
-
+![image](https://user-images.githubusercontent.com/117977429/213930153-e9e140e2-544e-4aa1-8812-4f4ae00202f7.png)
 
 
 
