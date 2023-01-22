@@ -43,8 +43,15 @@ Now, client can use program.
 ## Implementation:
 
 ### Server Side:
-We use a [command design pattern](https://en.wikipedia.org/wiki/Command_pattern). 
-![image](https://user-images.githubusercontent.com/117977429/213930358-6a94df78-e4f0-4006-8185-8922dd63e603.png)
+We use a [command design pattern](https://en.wikipedia.org/wiki/Command_pattern).
+We have Command abstract class and five diferent commands that inherits this class, one command to each menu option.
+Each command can be run by the server with execute() function that cn be run by server.
+![image](https://user-images.githubusercontent.com/117977429/213930358-6a94df78-e4f0-4006-8185-8922dd63e603.png).
+We have Cli class. It responsibble of running the different commands. We create vector with all the commands and run each command by execute().
+Cli use DefultIo class member that responsible for I/O.
+![image](https://user-images.githubusercontent.com/117977429/213931338-ec63d6c6-9c9e-4d3d-ac57-377bd40ced47.png).
+
+
 
 
 
