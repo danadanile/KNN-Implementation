@@ -5,7 +5,6 @@ ClassifyCommand::ClassifyCommand(DefaultIO *dio, Data *data) : Command(dio, data
 }
 
 void ClassifyCommand::execute() {
-    cout<<"start 3"<<endl;
     if (!data->getTrainIsInit() || !data->getTestIsInit()) {
         dio->write("Please upload data\n");
         return;

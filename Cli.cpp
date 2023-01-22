@@ -25,11 +25,10 @@ void Cli::start() {
     for (int i = 0; i < size; ++i) {
         menu += commands[i]->getDescription() + "\n";
     }
-    menu += "8. exit\n";
+    menu += "8. exit";
 
     bool flag = false;
     while(true) {
-        cout<<"start menu"<<endl;
         //SENT THE MENU:
         dio->write(menu);
         // Execute the chosen command
@@ -62,7 +61,6 @@ void Cli::start() {
         }
         dio->write("valid\n");
         //run option
-        cout<<"execute(:"<<endl;
         commands[index - 1]->execute();
     }
 

@@ -37,7 +37,7 @@ void UploadCommand::execute()
 {
     //SENT-PLEASE UPLOAD..
     string buffer;
-    dio->write("Please upload your local train CSV file.\n");
+    dio->write("Please upload your local train CSV file.");
 
     //GET-"READ DONE" IN CLIENT: ELSE:
     if (dio->read() == "invalid input.\n"){
@@ -74,7 +74,8 @@ void UploadCommand::execute()
         //CHECK K:
         if(data->getTrain()->getSizeMap()<data->getK()){
             cout<<"k prob"<<endl;
-            throw invalid_argument("invalid input.\n");
+            //throw invalid_argument("invalid input.\n");
+            data->setK(data->getTrain()->getSizeMap());
             
         }
         dio->write("Upload complete.\n");
@@ -92,11 +93,10 @@ void UploadCommand::execute()
     }
 
 
-
     //ROUND 2:
 
     //SENT-PLEASE UPLOAD..
-    dio->write("Please upload your local test CSV file.\n");
+    dio->write("Please upload your local test CSV file.");
 
     //GET-"READ DONE" IN CLIENT: ELSE:
     if (dio->read() == "invalid input.\n"){
@@ -128,8 +128,9 @@ void UploadCommand::execute()
 
         //CHECK K:
         if(data->getTest()->getSizeMap()<data->getK()){
-            throw invalid_argument("invalid input.\n");
+            //throw invalid_argument("invalid input.\n");
             cout<<"k prob"<<endl;
+            data->setK(data->getTest()->getSizeMap());
         }
 
         //CHECK SIZE TWO VECTOR MAPS:

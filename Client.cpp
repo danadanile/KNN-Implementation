@@ -27,7 +27,6 @@ void Client::upload()
 {
     for (int i = 0; i < 2; i++)
     {
-        cout << "i" << i << endl;
         string message, path;
 
         //READ DESCRIPTION TASK:
@@ -66,7 +65,6 @@ void Client::upload()
         string buffer;
         while (openFile)
         {
-            cout<<"start read"<<endl;
             buffer.clear();
             getline(openFile, buffer);
             addZeros(buffer);
@@ -235,7 +233,7 @@ void Client::start(){
             }
 
             int choose = stoi(chooseInput);
-            
+
             //send the choose to server:
             addZeros(chooseInput);
             clientSock->sendToServer(chooseInput);

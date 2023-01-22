@@ -4,13 +4,18 @@
 #include "Command.h"
 using namespace std;
 
-/// @brief Command1 class for getting test and train files
 
+/// @brief cammand upload
 class UploadCommand : public Command
 {
     
 public:
+    /// @brief upload command class task 1:
+    /// @param my_dio to read and write.
+    /// @param my_data for data.
     UploadCommand(DefaultIO *my_dio, Data *my_data);
+
+    /// @brief function start task 1.
     void execute() override;
     
 };
