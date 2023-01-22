@@ -50,6 +50,8 @@ Each command can be run by the server with execute() function that cn be run by 
 
 We have Cli class. It responsibble of running the different commands. We create vector with all the commands and run each command by execute().
 Cli use DefultIo class member that responsible for I/O.
+
+
 ![image](https://user-images.githubusercontent.com/117977429/213931338-ec63d6c6-9c9e-4d3d-ac57-377bd40ced47.png).
 
 
