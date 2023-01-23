@@ -1,9 +1,6 @@
-#include <fstream>
 #include <string>
 #include <vector>
 #include <sstream>
-#include <map>
-#include <unordered_map>
 #include <stdexcept>
 #include "CheckFuncs.h"
 #include "VectorUnclassified.h"
@@ -17,79 +14,47 @@ VectorUnclassified::VectorUnclassified()
 }
 
 
-VectorUnclassified::VectorUnclassified(stringstream &fname)
-{
+VectorUnclassified::VectorUnclassified(stringstream &stream) {
 
-   vector<vector<string>> content;
-   vector<string> row;
-   string line, word;
-
-   while (getline(fname, line))
-   {
-      row.clear();
-      stringstream str(line);
-
-      while (getline(str, word, ','))
-         row.push_back(word);
-      content.push_back(row);
-   }
-
-   vector<double> vec;
-   vector<double> vecPrev = {};
-   string nameType;
-
-   for (int i = 0; i < content.size(); i++)
-   {
-
-      for (int j = 0; j < content[i].size(); j++)
-      {
-         if (CheckFuncs::isNumber(content[i][j]) == 1) // checks if the file fills with numbers.
-            vec.push_back(stod(content[i][j]));
-         else
-            throw invalid_argument("invalid input"); ////
-      }
-
-      // int jSize = content[i].size() - 1;
-      nameType = "";
-
-      if ((i == 0) || CheckFuncs::checkSameLenght(vec, vecPrev) == 1) // check the lenght. (do it also in the first iteration.)
-         vecUnclassified.insert(pair<vector<double>, string>(vec, nameType));
-      else
-         throw invalid_argument("invalid input");
-
-      vecPrev = vec;
-      // set value to default
-      vec = {};
-      nameType = "";
-   }
+    vector<double> vec;
+    int vecLength = -1;
+    string line, word;
+    while (getline(stream, line)) {
+        stringstream str(line);
+        vec.clear();
+        while (getline(str, word, ',')) {
+            if (CheckFuncs::isNumber(word) == 1) {
+                vec.push_back(stod(word));
+            } else {
+                throw invalid_argument("Invalid input: file have input that is not a number.");
+            }
+        }
+        if (vecLength == -1) {
+            vecLength = vec.size();
+        } else if (vec.size() != vecLength) {
+            throw invalid_argument("Invalid input: Vector length is not consistent.");
+        }
+        vecUnclassified.push_back(vec);
+    }
 }
 
 
-int VectorUnclassified::getSizeMap()
+int VectorUnclassified::getTestLength()
 {
-   return vecUnclassified.size();
+    return vecUnclassified.size();
 }
 
-
-int VectorUnclassified::GetVectorLength()
-{
-   unordered_multimap<vector<double>, string, VectorHasher>::iterator itr;
-   itr = vecUnclassified.begin();
-   return itr->first.size();
+int VectorUnclassified::getOneVecLength(){
+    return vecUnclassified[0].size();
 }
-
-unordered_multimap<vector<double>, string, VectorHasher> VectorUnclassified::getVecUnclassified()
+vector<vector<double>> VectorUnclassified::getVecUnclassified()
 {
    return vecUnclassified;
 }
 
-void VectorUnclassified::classify(VectorMap *train, int k, int disType)
-{
-   unordered_multimap<vector<double>, string, VectorHasher>::iterator it;
-   string classification;
-   for (auto it = vecUnclassified.begin(); it != vecUnclassified.end(); it++)
-   {
-      classification = train->knnFunc(it->first, disType, k);
-      it->second = classification;
-   }
+
+void VectorUnclassified::deleteTest() {
+    vecUnclassified.clear();
+    vecUnclassified.shrink_to_fit();
+
 }

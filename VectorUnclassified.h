@@ -7,13 +7,15 @@
 #include <cstdlib>
 #include <unordered_map>
 #include "VectorMap.h"
-#include "VectorHasher.h"
 
 using namespace std;
 
 class VectorUnclassified {
    
-    unordered_multimap<vector<double>, string, VectorHasher> vecUnclassified;
+   //unordered_multimap<vector<double>, string, VectorHasher> vecUnclassified;
+   vector<vector<double>> vecUnclassified;
+   //vector<string> VectorResult;
+
 public:
     /// @brief constructor.
     VectorUnclassified();
@@ -21,21 +23,18 @@ public:
     /// @brief The class create map by file name. the first column in the map
     /// is the vector, the second is the name "".
     /// @param fname as a file name.
-    VectorUnclassified(stringstream &fname);
+    VectorUnclassified(stringstream &stream);
 
-    /// @brief get the number of rows in the map.
-    /// @return the size map.
-    int getSizeMap();
 
     /// @brief return the length of the vector in the map
     /// @return the first vector length, which symbolized the rest of vectors.
-    int GetVectorLength();
+    int getTestLength();
 
+    int getOneVecLength();
 
-    void classify(VectorMap* train, int k, int disType);
+    void deleteTest();
 
-
-    unordered_multimap<vector<double>, string,VectorHasher> getVecUnclassified();
+    vector<vector<double>> getVecUnclassified();
 
     };
 #endif

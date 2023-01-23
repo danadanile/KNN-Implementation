@@ -18,6 +18,7 @@ class Data
     int disType;
     VectorUnclassified *test;
     VectorMap *train;
+    string result;
     bool trainIsInit;
     bool testIsInit;
     bool isClassified;
@@ -33,6 +34,13 @@ public:
     /// @brief get k
     /// @return k
     int getK();
+
+    /// @brief get the result string
+    /// @return string
+    string getResult();
+
+    /// @brief set the result string by class
+    void setResult();
 
     /// @brief get pointer to test object.
     /// @return pointer to test object.
@@ -82,11 +90,8 @@ public:
     /// @param fname
     void setTrain(stringstream &fname);
 
-    /// @brief call classification of data func on vectorUnclassified object
-    void classifyData();
-
     /// @brief set classify indicator
     /// @param b
-    void SetIsClassified(bool b);
+    void setIsClassified(bool b);
 };
 #endif

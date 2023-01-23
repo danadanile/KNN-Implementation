@@ -10,7 +10,7 @@ using namespace std;
 
 
 Data::Data():disName("AUC"),disType(1),k(5), train(new VectorMap()),
-test(new VectorUnclassified()), isClassified(false), testIsInit(false), trainIsInit(false){ 
+test(new VectorUnclassified()), isClassified(false), testIsInit(false), trainIsInit(false), result(""){
 }
 
 
@@ -68,12 +68,27 @@ void Data::setTestIsInit(bool b){
     testIsInit=b;
 }
 
-void Data::classifyData() {
-    test->classify(train, k, disType);
+
+void Data::setIsClassified(bool b) {
+    isClassified=b;
 }
 
-void Data::SetIsClassified(bool b) {
-    isClassified=b;
+string Data::getResult() {
+    return result;
+}
+
+void Data::setResult() {
+    result="";
+    int count = 1;
+    for (auto vec: test->getVecUnclassified()) {
+        string classification = train->knnFunc(vec, disType, k);
+        result += to_string(count);
+        result += "\t";
+        result += classification;
+        result += "\n";
+        count++;
+    }
+    result += "Done.";
 }
 
 
