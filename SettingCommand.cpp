@@ -75,18 +75,18 @@ void SettingCommand::execute(){
         invalidK = true;
     }
 
-    // Validation K length:
-    if (data->getTestIsInit()){
-        if(data->getTest()->getSizeMap()<data->getK()){
-            invalidK = true;       
-        }
-    }
+    // // Validation K length:
+    // if (data->getTestIsInit()){
+    //     if(data->getTest()->getSizeMap()<data->getK()){
+    //         invalidK = true;       
+    //     }
+    // }
 
-    if (data->getTrainIsInit()){
-        if(data->getTrain()->getSizeMap()<data->getK()){
-            invalidK = true;       
-        }
-    }
+    // if (data->getTrainIsInit()){
+    //     if(data->getTrain()->getSizeMap()<data->getK()){
+    //         invalidK = true;       
+    //     }
+    // }
 
 
     // Validation Distance:

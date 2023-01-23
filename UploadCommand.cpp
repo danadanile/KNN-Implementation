@@ -41,7 +41,7 @@ void UploadCommand::execute()
     dio->write("Please upload your local train CSV file.");
 
     //GET-"READ DONE" IN CLIENT: ELSE:
-    if (dio->read() == "invalid input.\n"){
+    if (dio->read() == "invalid input"){
 
         //DELETE EXITS FILES:
         if (data->getTrainIsInit()){
@@ -58,27 +58,23 @@ void UploadCommand::execute()
 
     //GET-READ DONE IN CLIENT-READ ALL HERE:
     stringstream stream = readFileContent(dio);
-    cout<<"here1"<<endl;
     buffer.clear();
     data->SetIsClassified(false);
-    cout<<"here2"<<endl;
     try
     {
         //IF ALLRDY EXIST-DELETE:
         if (data->getTrainIsInit()){
             delete data->getTrain();
         }
-    cout<<"here3"<<endl;
         //ENTER TO VECTOR MAP:
         data->setTrain(stream);
-    cout<<"here4"<<endl;
-        //CHECK K:
-        if(data->getTrain()->getSizeMap()<data->getK()){
-            cout<<"k prob"<<endl;
-            //throw invalid_argument("invalid input.\n");
-            data->setK(data->getTrain()->getSizeMap());
+        // //CHECK K:
+        // if(data->getTrain()->getSizeMap()<data->getK()){
+        //     cout<<"k prob"<<endl;
+        //     //throw invalid_argument("invalid input.\n");
+        //     data->setK(data->getTrain()->getSizeMap());
             
-        }
+        // }
         dio->write("Upload complete.\n");
     }
     catch (const invalid_argument &er)
@@ -88,7 +84,7 @@ void UploadCommand::execute()
             delete data->getTest();
             data->setTestIsInit(false);
         }
-        dio->write("invalid input.\n");
+        dio->write("invalid input");
         data->setTrainIsInit(false);
         return;
     }
@@ -100,7 +96,7 @@ void UploadCommand::execute()
     dio->write("Please upload your local test CSV file.");
 
     //GET-"READ DONE" IN CLIENT: ELSE:
-    if (dio->read() == "invalid input.\n"){
+    if (dio->read() == "invalid input"){
 
         //DELETE EXITS FILES:
         if (data->getTrainIsInit()){
@@ -127,22 +123,21 @@ void UploadCommand::execute()
         //ENTER TO VECTOR MAP:
         data->setTest(streamTest);
 
-        //CHECK K:
-        if(data->getTest()->getSizeMap()<data->getK()){
-            //throw invalid_argument("invalid input.\n");
-            cout<<"k prob"<<endl;
-            data->setK(data->getTest()->getSizeMap());
-        }
+        // //CHECK K:
+        // if(data->getTest()->getSizeMap()<data->getK()){
+        //     //throw invalid_argument("invalid input.\n");
+        //     cout<<"k prob"<<endl;
+        //     data->setK(data->getTest()->getSizeMap());
+        // }
 
         //CHECK SIZE TWO VECTOR MAPS:
         if(data->getTest()->GetVectorLength()!=data->getTrain()->GetVectorLength()){
-            throw invalid_argument("invalid input.\n");
-            cout<<"size prob"<<endl;
+            throw invalid_argument("invalid input");
         }
     }
     catch (const invalid_argument &er)
     {
-        dio->write("invalid input.\n");
+        dio->write("invalid input");
         data->setTestIsInit(false);
         delete data->getTrain();
         data->setTrainIsInit(false);
@@ -151,7 +146,7 @@ void UploadCommand::execute()
 
     data->setTrainIsInit(true);
     data->setTestIsInit(true);
-    dio->write("Upload complete.\n");
+    dio->write("Upload complete.");
 }
 
 

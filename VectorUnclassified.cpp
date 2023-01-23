@@ -3,9 +3,12 @@
 #include <vector>
 #include <sstream>
 #include <map>
+#include <unordered_map>
 #include <stdexcept>
 #include "CheckFuncs.h"
 #include "VectorUnclassified.h"
+
+
 
 using namespace std;
 
@@ -70,19 +73,19 @@ int VectorUnclassified::getSizeMap()
 
 int VectorUnclassified::GetVectorLength()
 {
-   multimap<vector<double>, string>::iterator itr;
+   unordered_multimap<vector<double>, string, VectorHasher>::iterator itr;
    itr = vecUnclassified.begin();
    return itr->first.size();
 }
 
-multimap<vector<double>, string> VectorUnclassified::getVecUnclassified()
+unordered_multimap<vector<double>, string, VectorHasher> VectorUnclassified::getVecUnclassified()
 {
    return vecUnclassified;
 }
 
 void VectorUnclassified::classify(VectorMap *train, int k, int disType)
 {
-   multimap<vector<double>, string>::iterator it;
+   unordered_multimap<vector<double>, string, VectorHasher>::iterator it;
    string classification;
    for (auto it = vecUnclassified.begin(); it != vecUnclassified.end(); it++)
    {
