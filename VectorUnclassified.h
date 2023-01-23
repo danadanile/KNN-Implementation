@@ -10,11 +10,10 @@
 
 using namespace std;
 
+/// @brief Vectors for Unclassified data.
 class VectorUnclassified {
    
-   //unordered_multimap<vector<double>, string, VectorHasher> vecUnclassified;
    vector<vector<double>> vecUnclassified;
-   //vector<string> VectorResult;
 
 public:
     /// @brief constructor.
@@ -30,10 +29,15 @@ public:
     /// @return the first vector length, which symbolized the rest of vectors.
     int getTestLength();
 
+    /// @brief get the length of the vectors
+    /// @return  th len
     int getOneVecLength();
 
+    /// @brief delete the obj.
     void deleteTest();
 
+    /// @brief get vector of unclassified.
+    /// @return  the vector/
     vector<vector<double>> getVecUnclassified();
 
     };

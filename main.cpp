@@ -8,7 +8,6 @@ int main(int argc, char **argv){
 
   DefaultIO *dio = new StandartIO();
   Cli cli(dio);
-  cout<<"here7"<<endl;//00000000000000000000000
   cli.start();
 
 //    cout<<"ok1"<<endl;

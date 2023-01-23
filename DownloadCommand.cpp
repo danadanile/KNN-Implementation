@@ -13,12 +13,12 @@ void DownloadCommand::execute()
 {
     if (!data->getTestIsInit() || !data->getTrainIsInit())
     {
-        dio->write("please upload data\n");
+        dio->write("please upload data");
         return;
     }
     if (!data->getIsClassified())
     {
-        dio->write("please classify the data\n");
+        dio->write("please classify the data");
         return;
     }
 

@@ -1,35 +1,14 @@
-# make: server.out client.out
-# server.out:
-# 	g++ -o server.out ServerMain.cpp Server.cpp Server.h CheckFuncs.cpp CheckFuncs.h DistanceType.cpp VectorMap.cpp DistanceType.h VectorMap.h -std=c++11
+CPP_FILES = `find . -name "*.cpp" -not -name "mainTest.cpp" -not -name "mainCheck.cpp" -not -name "main.cpp" -not -name "ClientMain.cpp"`
+CPP_FILES1 = `find . -name "*.cpp" -not -name "mainTest.cpp" -not -name "mainCheck.cpp" -not -name "main.cpp" -not -name "ServerMain.cpp"`
 
-# client.out:
-# 	g++ -o client.out ClientMain.cpp Client.cpp Client.h CheckFuncs.cpp CheckFuncs.h DistanceType.cpp DistanceType.h -std=c++11
-# clean:
-# 	rm -f *.o server.out
-# 	rm -f *.o client.out
+all: server.out client.out
 
+server.out:
+	g++ -pthread -std=c++11 $(CPP_FILES) -o server.out
 
-# test2.out:
-# 	g++ -std=c++11 `find . -name "*.cpp" -not -name "ServerMain.cpp" -not -name "ClientMain.cpp"` -o test.out
+client.out:
+	g++ -pthread -std=c++11 $(CPP_FILES1) -o client.out
 
-# test.out:
-# 	g++ -o server.out mainTest.cpp CheckFuncs.cpp DistanceType.cpp VectorMap.cpp Command.cpp Cli.cpp Data.cpp DefaultIO.h StandartIO.cpp UploadCommand.cpp VectorUnclassified.cpp -std=c++11
-
-# clean:
-# 	rm -f *.o test.out
-
-
- make: server.out client.out
-
- server.out:
- 	g++ -o server.out ServerMain.cpp CheckFuncs.cpp DistanceType.cpp VectorMap.cpp Command.cpp Cli.cpp Data.cpp DefaultIO.h StandartIO.cpp UploadCommand.cpp VectorUnclassified.cpp SettingCommand.cpp DisplayCommand.cpp DownloadCommand.cpp ServerSocket.cpp SocketIO.cpp ClassifyCommand.cpp -std=c++11
-
- client.out:
-	g++ -o client.out ClientMain.cpp CheckFuncs.cpp DistanceType.cpp VectorMap.cpp Command.cpp Cli.cpp Data.cpp DefaultIO.h StandartIO.cpp UploadCommand.cpp VectorUnclassified.cpp SettingCommand.cpp DisplayCommand.cpp DownloadCommand.cpp ServerSocket.cpp SocketIO.cpp ClassifyCommand.cpp ClientSocket.cpp Client.cpp -std=c++11
-
- clean:
- 	rm -f *.o server.out
+clean:
+	rm -f *.o server.out
 	rm -f *.o client.out
-
-# g++ -o server.out ServerMain.cpp CheckFuncs.cpp DistanceType.cpp VectorMap.cpp Command.cpp Cli.cpp Data.cpp DefaultIO.h StandartIO.cpp UploadCommand.cpp VectorUnclassified.cpp SettingCommand.cpp DisplayCommand.cpp DownloadCommand.cpp  ServerSocket.cpp SocketIO.cpp ClassifyCommand.cpp -std=c++11
-# g++ -o client.out ClientMain.cpp CheckFuncs.cpp DistanceType.cpp VectorMap.cpp Command.cpp Cli.cpp Data.cpp DefaultIO.h StandartIO.cpp UploadCommand.cpp VectorUnclassified.cpp SettingCommand.cpp DisplayCommand.cpp DownloadCommand.cpp  ServerSocket.cpp SocketIO.cpp ClassifyCommand.cpp ClientSocket.cpp Client.cpp -std=c++11

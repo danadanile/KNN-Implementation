@@ -36,7 +36,8 @@ public:
     /// @return the map size.
     int getSizeMap();
 
-
+    /// @brief get the map
+    /// @return map classified.
     multimap<vector<double>, string> getMapi();
     
 };

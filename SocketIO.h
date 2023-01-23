@@ -7,6 +7,7 @@
 #include "DefaultIO.h"
 using namespace std;
 
+/// @brief socket io responsability for socket and write and read.
 class SocketIO : public DefaultIO {
 private:
     SessionSocket& socket;

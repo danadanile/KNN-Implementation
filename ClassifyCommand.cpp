@@ -6,7 +6,7 @@ ClassifyCommand::ClassifyCommand(DefaultIO *dio, Data *data) : Command(dio, data
 
 void ClassifyCommand::execute() {
     if (!data->getTrainIsInit() || !data->getTestIsInit()) {
-        dio->write("Please upload data\n");
+        dio->write("Please upload data");
         return;
     }
     //clasify data:
@@ -18,5 +18,5 @@ void ClassifyCommand::execute() {
     data->setResult();
     data->setIsClassified(true);
     // Inform the user the classification is done
-    dio->write("Classifying data complete.\n");
+    dio->write("Classifying data complete.");
 }

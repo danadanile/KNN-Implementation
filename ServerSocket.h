@@ -27,6 +27,7 @@ public:
     /// @return return the client socket
     int enterClient();
 
+    /// @brief close connection with server.
     void closeServer();
 };
 #endif
