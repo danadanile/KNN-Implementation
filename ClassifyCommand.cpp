@@ -15,8 +15,8 @@ void ClassifyCommand::execute() {
         dio->write("Please make sure k is higher than number vectors in train");
         return;
     }
-    data->classifyData();
-    data->SetIsClassified(true);
+    data->setResult();
+    data->setIsClassified(true);
     // Inform the user the classification is done
     dio->write("Classifying data complete.\n");
 }
