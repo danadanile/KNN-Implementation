@@ -5,13 +5,15 @@
 #include <string>
 #include <map>
 #include <cstdlib>
+#include <unordered_map>
 #include "VectorMap.h"
+#include "VectorHasher.h"
 
 using namespace std;
 
 class VectorUnclassified {
    
-    multimap<vector<double>, string> vecUnclassified;
+    unordered_multimap<vector<double>, string, VectorHasher> vecUnclassified;
 public:
     /// @brief constructor.
     VectorUnclassified();
@@ -33,7 +35,7 @@ public:
     void classify(VectorMap* train, int k, int disType);
 
 
-    multimap<vector<double>, string> getVecUnclassified();
+    unordered_multimap<vector<double>, string,VectorHasher> getVecUnclassified();
 
     };
 #endif

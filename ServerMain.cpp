@@ -18,6 +18,7 @@ void handleClient(int clientSock)
     {
         Cli *cli = new Cli(sockIO);
         cli->start();
+        delete cli;
     }
     catch (const runtime_error &er)
     {

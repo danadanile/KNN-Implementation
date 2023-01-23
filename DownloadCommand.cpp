@@ -4,7 +4,11 @@
 #include <vector>
 #include <sstream>
 #include <map>
+#include <unordered_map>
 #include "DownloadCommand.h"
+#include "VectorHasher.h"
+
+
 
 using namespace std;
 
@@ -26,7 +30,7 @@ void DownloadCommand::execute()
         return;
     }
 
-    multimap<vector<double>, string> vecShow = data->getTest()->getVecUnclassified();
+    unordered_multimap<vector<double>, string, VectorHasher> vecShow = data->getTest()->getVecUnclassified();
 
     string sResult = "";
     int count = 1;

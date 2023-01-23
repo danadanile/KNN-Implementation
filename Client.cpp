@@ -35,21 +35,19 @@ void Client::upload()
 
         // GET PATH FROM USER:
         getFromUser(path);
-        cout << path << endl;
 
         // TRY OPEN THE FILE:
         ifstream openFile;
         openFile.open(path);
-        printMsg("open");
         if (!openFile.is_open())
         {
-            message = "invalid input.\n";
+            message = "invalid input";
             printMsg(message);
         }
         else
         {
             message = "Succeed";
-            printMsg(message);
+            //printMsg(message);
         }
         string mess = message;
 
@@ -58,7 +56,7 @@ void Client::upload()
         clientSock->sendToServer(message);
 
         // IF NOT SUCCEED-TREAT:
-        if (mess == "invalid input.\n")
+        if (mess == "invalid input")
         {
             return;
         }
@@ -70,7 +68,7 @@ void Client::upload()
             buffer.clear();
             getline(openFile, buffer);
             addZeros(buffer);
-            cout << buffer << endl;
+            //cout << buffer << endl;
             if (buffer == "00000000000")
             {
                 cout << "end while" << endl;
@@ -91,7 +89,7 @@ void Client::upload()
 
         printMsg(buffer); // print complete or not
         cout << "here8" << endl;
-        if (buffer == "invalid input.\n")
+        if (buffer == "invalid input")
         {
             return;
         }
@@ -130,7 +128,7 @@ void Client::settings()
     {
         printMsg(message);
     }
-    printMsg("i client return from func settings");
+    //printMsg("i client return from func settings");
     return;
 }
 void Client::classifyData()
