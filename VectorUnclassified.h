@@ -39,6 +39,5 @@ public:
     /// @brief get vector of unclassified.
     /// @return  the vector/
     vector<vector<double>> getVecUnclassified();
-
     };
 #endif

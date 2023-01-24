@@ -36,7 +36,6 @@ void Cli::start() {
         string chooseStr = dio->read();
 
         if(chooseStr=="retMenu"){
-            cout<<"end"<<endl;
             continue;
         }
 
@@ -61,11 +60,6 @@ void Cli::start() {
         //run option
         commands[index - 1]->execute();
     }
-
-    // try {
-    //     SocketIO* socketIo = (SocketIO*) m_dio;
-    //     socketIo->stopRunning();
-    // } catch (const std::exception& e) {}
 }
 
 Cli::~Cli() {

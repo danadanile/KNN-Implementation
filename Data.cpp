@@ -90,5 +90,3 @@ void Data::setResult() {
     }
     result += "Done.";
 }
-
-

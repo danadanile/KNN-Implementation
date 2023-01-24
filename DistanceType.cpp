@@ -61,8 +61,6 @@ double DistanceType::calcDiff(double p, double q) {
 }
 
 
-
-
 /// @brief Calculates Minkowski distance.
 /// @param p vector one.
 /// @param q vector two.

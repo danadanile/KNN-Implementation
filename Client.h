@@ -1,6 +1,5 @@
 #ifndef CLIENT_H_
 #define CLIENT_H_
-
 #include <fstream>
 #include <string>
 #include <iostream>

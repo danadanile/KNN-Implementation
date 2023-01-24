@@ -9,4 +9,3 @@ std::string SocketIO::read() {
 void SocketIO::write(const string &str) {
     socket.sendToClientSize(str);
 }
-

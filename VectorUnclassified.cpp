@@ -13,7 +13,6 @@ VectorUnclassified::VectorUnclassified()
 {
 }
 
-
 VectorUnclassified::VectorUnclassified(stringstream &stream) {
 
     vector<double> vec;

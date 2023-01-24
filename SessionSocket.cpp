@@ -92,8 +92,6 @@ void SessionSocket::sendToClientSize(const string &str)
     }
 }
 
-
-
 void SessionSocket::closeClient()
 {
     close(client_sock);

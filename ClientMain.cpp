@@ -17,7 +17,7 @@ int main(int argc, char **argv)
     // check the port.
     
     int port = -1;
-    string strPort = string(argv[1]);
+    string strPort = string(argv[2]);
     if (ClientSocket::isPort(strPort)){
         port = stoi(argv[1]);
     }
@@ -26,12 +26,10 @@ int main(int argc, char **argv)
         return 0;
     }
 
-        ClientSocket* clientS = new ClientSocket(port, argv[2]);
+        ClientSocket* clientS = new ClientSocket(port, argv[1]);
         Client* cli = new Client(clientS);
     try{
         cli->start();
-        //string finish=FINISH_CONNECTION;
-        //clientS->sendToServer(finish);
         clientS->closeClient();
         return 0;
     }

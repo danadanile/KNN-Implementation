@@ -134,5 +134,3 @@ void UploadCommand::execute()
     data->setTestIsInit(true);
     dio->write("Upload complete.");
 }
-
-
