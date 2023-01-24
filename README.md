@@ -70,7 +70,7 @@ The client communicate with the server and the User. It receives index for choos
 which command to run. Client gets information from user and prints messages from the server.
 
 ### Data side:
-# VectorMap class:
+### VectorMap class:
 We created a VectorMap class that have a Multimap member that saves in it the train file with classified vectors.
 
 We have knnFunc where we calculate the distances between all the vectors in the map and one given vector. We save the distances in another
@@ -80,11 +80,11 @@ already sorted from the smallest dis. to the biggest), and save to another map h
 
 Now, we find the classification name that have the max appearances and return it.
 
-# VectorUnclassified Class:
+### VectorUnclassified Class:
 In this class we have a vector of double vectors. It saves the information of file test and have a setResult function 
 that classify each vector with the KnnFunc. The function returns the results of the classifications on the vectors that saves in the class member.
 
-# DistanceType Class:
+### DistanceType Class:
 This class deals with calculating the suitable distance according to the distance
 type. It has an int member that is the index of the distance
 name (we convert the distance name that we get in settingCommand to int index
