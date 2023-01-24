@@ -34,7 +34,7 @@ server.out file port
 Then, run a client (on different terminal or computer)
 Write the next command with your arrguments:
 ```
-client.out ip port
+client.out port ip
 ```
 (you can remove the out files by write "make clean")
 
