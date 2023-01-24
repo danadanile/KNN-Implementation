@@ -19,7 +19,7 @@ int main(int argc, char **argv)
     int port = -1;
     string strPort = string(argv[2]);
     if (ClientSocket::isPort(strPort)){
-        port = stoi(argv[1]);
+        port = stoi(argv[2]);
     }
     if (port == -1){
         cout << "the port is not valid." << endl;
