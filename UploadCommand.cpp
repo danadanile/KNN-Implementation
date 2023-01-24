@@ -66,7 +66,7 @@ void UploadCommand::execute()
         }
         //ENTER TO VECTOR MAP:
         data->setTrain(stream);
-        dio->write("Upload complete.\n");
+        dio->write("Upload complete.");
     }
     catch (const invalid_argument &er)
     { 

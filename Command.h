@@ -5,8 +5,9 @@
 #include "Data.h"
 using namespace std;
 
+/// @brief abstruct Command class
 class Command {
-    /// @brief abstruct Command class
+
 
 protected: 
     string description;

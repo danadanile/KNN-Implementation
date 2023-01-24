@@ -44,22 +44,20 @@ void Cli::start() {
             index = stoi(chooseStr);
             //if a not number input
         } catch (const std::exception& e) {
-            dio->write("invalid input\n");
+            dio->write("invalid input");
             continue;
         }
 
         if (index == 8) {
-            //dio->write("invalid input\n");
             return;
-            //break;
         }
 
         //invalid option
         if (index <= 0 || index > size) {
-            dio->write("invalid input\n");
+            dio->write("invalid input");
             continue;
         }
-        dio->write("valid\n");
+        dio->write("valid");
         //run option
         commands[index - 1]->execute();
     }

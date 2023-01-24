@@ -47,7 +47,6 @@ void Client::upload()
         else
         {
             message = "Succeed";
-            //printMsg(message);
         }
         string mess = message;
 
@@ -68,10 +67,8 @@ void Client::upload()
             buffer.clear();
             getline(openFile, buffer);
             addZeros(buffer);
-            //cout << buffer << endl;
             if (buffer == "00000000000")
             {
-                cout << "end while" << endl;
                 break;
             }
             clientSock->sendToServer(buffer);
@@ -88,13 +85,11 @@ void Client::upload()
         buffer = clientSock->recFromServerSize(SIZE_READ);
 
         printMsg(buffer); // print complete or not
-        cout << "here8" << endl;
         if (buffer == "invalid input")
         {
             return;
         }
     }
-    cout << "here9" << endl;
 }
 
 void Client::settings()
@@ -114,7 +109,6 @@ void Client::settings()
         message = "continue";
         addZeros(message);
         clientSock->sendToServer(message);
-        cout << "ret in client" << endl;
         return;
     }
     ////K and Distance in message:
@@ -134,7 +128,7 @@ void Client::settings()
 void Client::classifyData()
 {
     string message;
-    cout << "before recive" << endl;
+    //cout << "before recive" << endl;
     message = clientSock->recFromServerSize(SIZE_READ);
     printMsg(message);
 }
@@ -147,11 +141,8 @@ void Client::display()
 
 void Client::download()
 {
-    cout << "before" << endl;
     string message = clientSock->recFromServerSize(SIZE_READ);
-    cout << "after" << endl;
-    // cout<<message<<endl;
-    if (message == "please upload data\n" || message == "please classify the data\n")
+    if (message == "please upload data" || message == "please classify the data")
     {
         printMsg(message);
         return;
@@ -217,7 +208,7 @@ bool checkChooseValid(string choose)
     if (CheckFuncs::isNumeric(choose))
     {
         int c = stoi(choose);
-        cout << c << endl;
+        //cout << c << endl;
         if (c < 1 || c > 8 || c == 7)
         {
             return false;
@@ -240,7 +231,6 @@ void Client::start()
             msgFromServer = "";
             chooseInput = "";
 
-            cout << "before getting menu from server" << endl;
 
             // get the menu from server:
             msgFromServer = clientSock->recFromServerSize(SIZE_READ);

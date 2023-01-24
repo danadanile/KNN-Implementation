@@ -43,7 +43,7 @@ bool SettingCommand::isValidK(string k_input){
 void SettingCommand::execute(){
     //Send the current setting:
     string message;
-    dio->write(string("The current KNN parameters are:") + string(" K = ") + to_string(data->getK()) + ", distance metric = " + data->getDisName() + "\n");
+    dio->write(string("The current KNN parameters are:") + string(" K = ") + to_string(data->getK()) + ", distance metric = " + data->getDisName());
     message.clear();
 
     //Read the new settings:
@@ -60,7 +60,7 @@ void SettingCommand::execute(){
 
     // If not 2 arg:
     if (vec.size() != 2){
-        dio->write("invalid value for k\ninvalid value for metric\n");
+        dio->write("invalid value for k\ninvalid value for metric");
         return;
     }
 
@@ -96,17 +96,17 @@ void SettingCommand::execute(){
     {
         //k also unvalid:
         if (invalidK){
-            dio->write("invalid value for k\ninvalid value for metric\n");
+            dio->write("invalid value for k\ninvalid value for metric");
             return;
         }
         else{
-            dio->write("invalid value for metric\n");
+            dio->write("invalid value for metric");
             return;
         }
     }
     else{
         if(invalidK){
-            dio->write("invalid value for k\n");
+            dio->write("invalid value for k");
             return;
         }
     }
@@ -128,7 +128,7 @@ void SettingCommand::execute(){
     {
         disNum = it->second;
     }
-    dio->write("valid\n");
+    dio->write("valid");
     data->setDisName(disName);
     data->setDisType(disNum);
     data->setK(k);

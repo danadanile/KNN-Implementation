@@ -11,10 +11,10 @@ using namespace std;
 
 void handleClient(int clientSock)
 {
-    cout << "in thread handleClient " << clientSock << endl;
+    //cout << "in thread handleClient " << clientSock << endl;
     SessionSocket sesS(clientSock);
     SocketIO *sockIO = new SocketIO(sesS);
-    try
+    try 
     {
         Cli *cli = new Cli(sockIO);
         cli->start();

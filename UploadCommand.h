@@ -5,7 +5,7 @@
 using namespace std;
 
 
-/// @brief cammand upload
+/// @brief cammand upload task one.
 class UploadCommand : public Command
 {
     
