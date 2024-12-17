@@ -5,7 +5,7 @@ We classify vectors by finding theirs k nearest neighbors, the k vectors with th
 ## working with the program:
 We enter server by giving port number.
 We enter client by giving port and ip number.
-When client connects to server he gets a menu. Client can choose between 5 1-5 and 8 options.
+When client connects to server he gets a menu. Client can not choose between 5 1-5 and 8 options.
 
 In option number 1: client provides two files. First file is the file with which you want to classify the vectors and the second file is the file with vectors we want to classify.
 
