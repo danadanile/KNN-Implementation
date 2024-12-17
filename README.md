@@ -69,7 +69,7 @@ The server send information to the client according to the Client inputs, it run
 The client communicate with the server and the User. It receives index for choosing commands from user and send to the Server the information, so the server will know
 which command to run. Client gets information from user and prints messages from the server.
 
-### Data side:
+
 ### VectorMap class:
 We created a VectorMap class that have a Multimap member that saves in it the train file with classified vectors.
 
